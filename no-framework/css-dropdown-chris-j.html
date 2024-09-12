@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!-- Sets the language to English -->
+<html lang="en">
+
+<head>
+    <!-- Forces the width of the webpage to be exactly the width of the device's screen and sets the default zoom on the webpage to 1.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the character encoding to UTF-8 which is recommended for webpages -->
+    <meta charset="UTF-8">
+    <!-- Sets the title of the webpage -->
+    <title>CSS Dropdown - Christopher Jamieson </title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /* Sets the default font-family for the browser to use */
+            margin: 0;
+            /* Removes the default margin added to the body */
+            font-size: large;
+            /* Sets the default font size to large */
+            background-color: #dcfae6;
+            /* Sets the background color of the webpage */
+        }
+
+        /* CSS For the navigation bar */
+        .navbar-container {
+            display: flex;
+            /* Turns the HTML elements with the class navbar-container into a flexbox */
+            flex-direction: row;
+            /* Flex items are placed in the flexbox along the x-axis */
+            background-color: #279c40;
+            /* Sets the background color for the navbar */
+            --width-of-buttons: 6.5rem;
+            /* Sets the width of the button links */
+            --button-text-indent: 0.5em;
+            /* Sets the amount of indentation for the "buttons" */
+            --height-of-the-navbar: 1.75rem;
+            /* Sets the height of the navbar */
+
+            height: var(--height-of-the-navbar);
+            /* Sets the vertical size of the navbar */
+        }
+
+        .menu-container {
+            display: flex;
+            /* Turns the HTML elements with the class menu-container into a flexbox */
+            flex-direction: column;
+            /* Flex items are placed in the flexbox along the y-axis */
+            z-index: 2;
+            /* Sets the Z index of the navbar "buttons" so that they are rendered above the main content */
+        }
+
+        .navbar-button {
+            display: flex;
+            /* Turns the HTML elements with the class navbar-button into a flexbox  */
+            width: var(--width-of-buttons);
+            /* Sets the width of the "buttons" in the navbar */
+            text-indent: var(--button-text-indent);
+            /* Sets the text indentation */
+            min-height: var(--height-of-the-navbar);
+            max-height: var(--height-of-the-navbar);
+            /* Forces the size of each navbar "button" to match the size of the navbar */
+            align-items: center;
+            /* Centers the text within the "buttons" vertically */
+        }
+
+        .link-container {
+            background-color: #27c440;
+            /* Sets the background color of the button links */
+            font-size: medium;
+            /* Sets the font size for the button links */
+            display: flex;
+            /* Turns the HTML elements with the class link-container into a flexbox  */
+            flex-direction: column;
+            /* Flex items are placed along the y-axis */
+            display: none;
+            /* By default, the links are hidden from the user's view */
+        }
+
+        .link-container a {
+            width: var(--width-of-buttons);
+            /* The button links' width must match the width of the "buttons" */
+            text-decoration: none;
+            /* Removes the default text decorations on anchor tags */
+            text-indent: var(--button-text-indent);
+            /* Matches the text indentation applied to the "buttons" */
+            padding: .3em 0 .3em 0;
+            /* Adds spacing between elements */
+        }
+
+        /* The logic for the webpage */
+        a,
+        a:visited,
+        a:hover,
+        a:active {
+            color: black;
+            /* Forces the color of the anchor tags to stay the same when it's visited, hovered over and activated */
+        }
+
+        a:hover {
+            background-color: rgb(2, 254, 2);
+            /* When the button links are hovered over, the background color is changed to a lighter green */
+        }
+
+        .navbar-file-menu:hover .navbar-button,
+        .navbar-button-file:hover~.link-container {
+            background-color: #27c440;
+            /* When the file "button" is hovered over with the mouse, the background color will change */
+            display: flex;
+            /* This unhides the button submenu for the File button */
+        }
+
+        .navbar-edit-menu:hover .navbar-button,
+        .navbar-button-edit:hover~.link-container {
+            background-color: #27c440;
+            /* When the edit "button" is hovered over with the mouse, the background color will change */
+            display: flex;
+            /* This unhides the button submenu for the Edit button */
+        }
+
+        .navbar-view-menu:hover .navbar-button,
+        .navbar-button-view:hover~.link-container {
+            background-color: #27c440;
+            /* When the view "button" is hovered over with the mouse, the background color will change */
+            display: flex;
+            /* This unhides the button submenu for the View button */
+        }
+
+        .link-container:hover {
+            display: flex;
+            /* While the user is still hovering over a submenu, it shouldn't close */
+        }
+
+        /* CSS For crazy-hidden-textbox-toggle */
+        #crazy-hidden-textbox-toggle:focus~.link-container,
+        #crazy-hidden-textbox-toggle:focus~.navbar-button-edit {
+            display: flex;
+            /* Makes Edit submenu appear */
+            background-color: #27c440;
+            /* Changes the background color */
+        }
+
+        /* Hides the crazy-hidden-textbox-toggle */
+        #crazy-hidden-textbox-toggle {
+            position: absolute;
+            /* Allows the HTML element to be absolutely positioned */
+            top: -99999999px;
+            /* Moves the HTML element to the void */
+        }
+
+        /* CSS For the main content */
+        .content-box {
+            font-size: medium;
+            /* Sets the default font-size to medium for the content on the page */
+            margin: 1.5rem;
+            /* Sets the margin for the content boxes so that they seem like they're floating */
+            padding: 1rem;
+            /* Sets the padding for the content boxes so that the text doesn't touch the border of the content boxes */
+            background-color: white;
+            /* Sets the background color for the content boxes */
+        }
+
+        .content-box h3 {
+            margin: 0;
+            /* Removes the margin added to the header by default */
+        }
+
+        .content-box-top {
+            border-left: 0.25rem solid #27c440;
+            /* Sets the border color for the top content box */
+        }
+
+        .content-box-bottom {
+            border-left: 0.25rem solid #f5f550;
+            /* Sets the border color for the bottom content box */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Holds the navigation bar and it's menus -->
+    <nav class="navbar-container">
+        <!-- Each "menu-container" holds a "button" and a submenu -->
+        <div class="menu-container navbar-file-menu">
+            <div class="navbar-button navbar-button-file">
+                <strong>File</strong>
+            </div>
+
+            <!-- Each link-container holds all of the links for each submenu -->
+            <div class="link-container">
+                <a href="">New</a>
+                <a href="">Open</a>
+                <a href="">Save</a>
+                <a href="">Print</a>
+                <a href="">Close</a>
+            </div>
+        </div>
+
+        <div class="menu-container navbar-edit-menu">
+            <!-- Used to toggle the Edit button without using Javascript! -->
+            <input type="text" id="crazy-hidden-textbox-toggle">
+
+            <!-- It's a <label> instead of a <div>!! -->
+            <label for="crazy-hidden-textbox-toggle" class="navbar-button navbar-button-edit">
+                Edit
+            </label>
+
+            <div class="link-container">
+                <a href="">Undo</a>
+                <a href="">Redo</a>
+                <a href="">Cut</a>
+                <a href="">Copy</a>
+                <a href="">Paste</a>
+                <a href="">Delete</a>
+                <a href="">Select All</a>
+            </div>
+        </div>
+
+        <div class="menu-container navbar-view-menu">
+            <div class="navbar-button navbar-button-view">
+                <strong>View</strong>
+            </div>
+
+            <div class="link-container">
+                <a href="">Zoom In</a>
+                <a href="">Zoom Out</a>
+                <a href="">Actual Size</a>
+                <a href="">Fit Page</a>
+                <a href="">Fit Width</a>
+                <a href="">Fit Height</a>
+                <a href="">Rotate Left</a>
+                <a href="">Rotate Right</a>
+                <a href="">Full Screen</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Holds the main content for the page -->
+    <main>
+        <div class="content-box content-box-top">
+            <h3>Intructions</h3>
+            <p>
+                Recreate this page using <i><b>only CSS</b></i>.
+                Do yourself a favor and
+                1) Do not view the source.
+                Figure it out yourself.
+                2) Do not search for the solution.
+                Learn CSS until you know enough to do this.
+            </p>
+        </div>
+
+        <div class="content-box content-box-bottom">
+            <h3>Extra Credit</h3>
+            <p>
+                Notice how the Edit menu (besides for not being bold) reacts to clicks.
+                If you click the edit menu, it remains open until you click somewhere else.
+                (This you might need to search for)
+            </p>
+        </div>
+    </main>
+</body>
+
+</html>
