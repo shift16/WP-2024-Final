@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"> <!-- Adds Bulma to the project -->
+    <title>To Do List Vue</title>
+    <style>
+        .is-text-centered {
+            text-align: center;
+        }
+
+        .provide-gaps {
+            padding-bottom: 1rem;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 0 1rem;
+        }
+    </style>
+</head>
+<body id="app">
+    <main class="columns is-centered">
+        <div class="column is-3">
+            <div class="box">
+                <h1 class="title is-text-centered">Create Tasks</h1>
+
+                <div class="button-container">
+                    <button @click="add_task" class="button is-primary">Create Task</button>
+                    <input type="text" class="input task-message" placeholder="Task Message">
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-3">
+            <div class="box">
+                <h1 class="title is-text-centered">To Do</h1>
+
+                <ul>
+                    <li v-for="task in list_of_tasks">
+                        <div v-if="task.task_type === 'To Do'" class="provide-gaps is-flex is-flex-direction-column is-justify-content-center">
+                            <div class="box">
+                                <h1 class="is-text-centered subtitle">Task</h1>
+                                <p class="provide-gaps">{{ task.task_message }}</p>
+                            </div>
+                            
+                            <button @click="move_task(task)" class="button is-primary">Complete</button>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+
+        <div class="column is-3">
+            <div class="box">
+                <h1 class="title is-text-centered">Done</h1>                
+                
+                <ul>
+                    <li v-for="(task, index) in list_of_tasks">
+                        <div v-if="task.task_type === 'Done'" class="provide-gaps">
+                            <div class="container">
+                                <div class="box">
+                                    <p class="provide-gaps">{{ task.task_message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </main>
+</body>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> <!-- Adds Vue to the project -->
+<script>
+    const {createApp, ref} = Vue
+
+    createApp({
+        setup() {
+            const list_of_tasks = ref([])
+
+            const task_number = ref(0) 
+
+            function add_task() {
+                const input = document.querySelector('.task-message')
+                const content = input.value
+
+                input.value = null
+
+                if (content != "") {
+                    task_number.value++
+                    list_of_tasks.value.push(
+                        { 
+                            task_id: task_number.value,
+                            task_type: 'To Do',
+                            task_message: content,
+                        })
+                    } else {
+                        window.alert("You must add text to the task message")
+                    }
+                } 
+
+            function move_task(task) {
+                list_of_tasks.value.forEach(element => {
+                    if (element.task_id == task.task_id) {
+                        element.task_type = "Done"
+                    }
+                });
+                
+            }
+
+            return {list_of_tasks, add_task, move_task}
+        }
+    }).mount("#app")
+</script>
+</html>
