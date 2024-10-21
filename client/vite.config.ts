@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    vueDevTools(),
+    // vueDevTools(), DISABLED B/C IT'S LAGGY AF
   ],
   resolve: {
     alias: {
