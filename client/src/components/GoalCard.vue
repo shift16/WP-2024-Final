@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineProps({
+    currentProgress: Number
+})
+
 </script>
 
 <template>
@@ -12,7 +16,10 @@
             <slot name="card-content"></slot>
         </p>
 
-        <progress class="progress very-small"></progress>
+        <slot name="progress-bar">
+            <progress :value="currentProgress || undefined" max="100" class="progress very-small"></progress>
+        </slot>
+        
     </div>
 </template>
 
@@ -27,7 +34,7 @@
 }
 
 .very-small {
-    height: 8px;
+    height: 0.25rem;
 }
 
 </style>

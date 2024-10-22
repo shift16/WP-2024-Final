@@ -21,7 +21,7 @@ import { RouterLink } from 'vue-router';
                 </div>
             </div>
 
-            <RouterLink to="/activity" class="button is-size-6 is-fullwidth is-primary">Sign in</RouterLink>
+            <RouterLink to="/dashboard" class="button is-size-6 is-fullwidth is-primary">Sign in</RouterLink>
         </form>
 
         <div class="box center-self">

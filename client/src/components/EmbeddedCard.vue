@@ -3,15 +3,15 @@
 </script>
 
 <template>
-    <div class="block is-size-5 has-text-centered">
-        <h2 class="title mb-3">
+    <div class="block has-text-centered">
+        <h2 class="is-size-4 mb-3">
             <slot name="card-title"></slot>
         </h2>
-        <p>
+        <p class="is-size-5">
             <slot name="top-content"></slot>
         </p>
         <div class="horizontal-divider"></div>
-        <p>
+        <p class="is-size-5">
             <slot name="bottom-content"></slot>
         </p>
     </div>

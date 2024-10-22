@@ -15,7 +15,7 @@ import { RouterLink } from 'vue-router';
 
         <div class="navbar-menu">
             <div class="navbar-start">
-                <RouterLink class="navbar-item" to="/activity">Activity Dashboard</RouterLink>
+                <RouterLink class="navbar-item" to="/dashboard">Activity Dashboard</RouterLink>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <div class="navbar-link">Progress</div>
 
