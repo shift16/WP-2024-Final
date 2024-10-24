@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "credential": {
+                "username": "",
+                "email": "",
+                "password": ""
+            },
+
+            "account_detail": {
+                "name": "",
+                "profile_picture": ""
+            },
+
+            "permission": {
+                "admin": false
+            }
+        }
+    ]
+}

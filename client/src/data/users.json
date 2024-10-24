@@ -1,0 +1,74 @@
+{
+    "users": [
+        {
+            "credential": {
+                "username": "john_doe",
+                "email": "johndoe@example.com",
+                "password": "password123"
+            },
+            "account_detail": {
+                "name": "John Doe",
+                "profile_picture": "https://example.com/johndoe.jpg"
+            },
+            "permission": {
+                "admin": false
+            }
+        },
+        {
+            "credential": {
+                "username": "jane_smith",
+                "email": "janesmith@example.com",
+                "password": "password456"
+            },
+            "account_detail": {
+                "name": "Jane Smith",
+                "profile_picture": "https://example.com/janesmith.jpg"
+            },
+            "permission": {
+                "admin": true
+            }
+        },
+        {
+            "credential": {
+                "username": "bob_johnson",
+                "email": "bobjohnson@example.com",
+                "password": "password789"
+            },
+            "account_detail": {
+                "name": "Bob Johnson",
+                "profile_picture": "https://example.com/bobjohnson.jpg"
+            },
+            "permission": {
+                "admin": false
+            }
+        },
+        {
+            "credential": {
+                "username": "alice_williams",
+                "email": "alicewilliams@example.com",
+                "password": "password012"
+            },
+            "account_detail": {
+                "name": "Alice Williams",
+                "profile_picture": "https://example.com/alicewilliams.jpg"
+            },
+            "permission": {
+                "admin": false
+            }
+        },
+        {
+            "credential": {
+                "username": "mike_davis",
+                "email": "mikedavis@example.com",
+                "password": "password345"
+            },
+            "account_detail": {
+                "name": "Mike Davis",
+                "profile_picture": "https://example.com/mikedavis.jpg"
+            },
+            "permission": {
+                "admin": false
+            }
+        }
+    ]
+}

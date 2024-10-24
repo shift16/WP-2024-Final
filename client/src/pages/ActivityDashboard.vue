@@ -2,16 +2,14 @@
 import NavBar from '../components/NavBar.vue';
 import EmbeddedCard from '../components/EmbeddedCard.vue';
 import GoalCard from '../components/GoalCard.vue';
-import ModalComponent from '../components/ModalComponent.vue';
 
 </script>
 
 <template>
-  <NavBar></NavBar>
-  <ModalComponent></ModalComponent>
-  <div class="columns ml-6 mr-6 mt-6">
+  <NavBar></NavBar> <!-- Add the Navbar -->
+  <div class="columns ml-5 mr-5 mt-5">
     <div class="column message is-one-third">
-      <h1 class="message-header">Latest Activity</h1>
+      <h1 class="message-header">Your Activity</h1>
       <div class="message-body">
         <GoalCard :current-progress="10">
           <template #card-title>Walk 10 Miles</template>
@@ -45,7 +43,7 @@ import ModalComponent from '../components/ModalComponent.vue';
     </div>
   </div>
 
-  <div class="columns ml-6 mr-6">
+  <div class="columns ml-5 mr-5">
     <div class="column is-two-thirds message">
       <h1 class="message-header">Nutrition</h1>
       <div class="message-body">
