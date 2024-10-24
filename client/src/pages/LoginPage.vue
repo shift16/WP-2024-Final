@@ -52,7 +52,8 @@ function handleSignUp(): void {
                 <label for="username" class="label is-size-6">Username</label>
                 <div class="control">
                     <input name="username" type="text" ref="username-tag" class="input"
-                        :class="{ 'is-danger': inputtedContentWrong }" placeholder="johndoe123" />
+                        :class="{ 'is-danger': inputtedContentWrong }" placeholder="johndoe123"
+                        @keyup.enter="handleSignUp" />
                 </div>
             </div>
 
@@ -60,7 +61,8 @@ function handleSignUp(): void {
                 <label for="password-input" class="label is-size-6">Password</label>
                 <div class="control">
                     <input name="password-input" type="password" ref="password-tag" class="input"
-                        :class="{ 'is-danger': inputtedContentWrong }" placeholder="***********" />
+                        :class="{ 'is-danger': inputtedContentWrong }" placeholder="***********"
+                        @keyup.enter="handleSignUp" />
                 </div>
             </div>
 
