@@ -1,4 +1,5 @@
 import data from "../data/users.json"
+import { ref, type Ref } from 'vue'
 
 export interface Credential {
     username: string;
@@ -27,4 +28,29 @@ export interface Users {
 
 export function getUsers(): User[] {
     return data.users
+}
+
+const default_user: User = {
+    "credential": {
+        "username": "NOTSET",
+        "email": "NOONE@example.com",
+        "password": "NOPASSWORD"
+    },
+    "account_detail": {
+        "name": "NO ONE",
+        "profile_picture": "https://example.com/ghost.jpg"
+    },
+    "permission": {
+        "admin": false
+    }
+}
+
+const userThatLoggedIn: Ref<User> = ref(default_user)
+
+export function getUserThatLoggedIn(): User {
+    return userThatLoggedIn.value
+}
+
+export function setUserThatLoggedIn(new_user: User): void {
+    userThatLoggedIn.value = new_user
 }

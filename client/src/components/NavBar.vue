@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { ref } from 'vue'
+import { getUserThatLoggedIn } from '@/model/users';
 
 const searchModalActive = ref(false)
 
@@ -26,7 +27,7 @@ function disableSearchModal() {
 
         <div class="navbar-menu">
             <div class="navbar-start">
-                <RouterLink class="navbar-item" to="/dashboard">Activity Dashboard</RouterLink>
+                <RouterLink class="navbar-item" to="/dashboard">Welcome back {{ getUserThatLoggedIn().account_detail.name }}</RouterLink>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <div class="navbar-link">Progress</div>
 

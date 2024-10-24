@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { RouterLink } from 'vue-router';
-import { getUsers, type Credential } from '@/model/users';
+import { getUsers, setUserThatLoggedIn } from '@/model/users';
 import { useTemplateRef, ref } from 'vue'
 import router from '@/router';
 
@@ -25,22 +25,23 @@ const usernameField = useTemplateRef('username-tag')
 const passwordField = useTemplateRef('password-tag')
 const inputtedContentWrong = ref(false)
 
-function handleSignUp(): void {
+function handleSignIn(): void {
     const usernameFieldValue = usernameField.value?.value
     const passwordFieldValue = passwordField.value?.value
 
     if (usernameFieldValue != undefined && passwordFieldValue != undefined) {
         if (isValid(usernameFieldValue, passwordFieldValue)) {
+            const userThatLoggedIn = users.filter(
+                (user) => { return user.credential.username === usernameFieldValue }
+            )[0]
+
+            setUserThatLoggedIn(userThatLoggedIn)
+
             router.push('/dashboard')
         } else {
             inputtedContentWrong.value = true
         }
-
     }
-
-    // I have to ensure these fields are not undefined
-    // I want to ensure that the username and password is correct. If they are correct, then send them to the next page,
-    // Else add the class is-danger (possibly with a conditional :class)
 
 }
 </script>
@@ -53,7 +54,7 @@ function handleSignUp(): void {
                 <div class="control">
                     <input name="username" type="text" ref="username-tag" class="input"
                         :class="{ 'is-danger': inputtedContentWrong }" placeholder="johndoe123"
-                        @keyup.enter="handleSignUp" />
+                        @keyup.enter="handleSignIn" />
                 </div>
             </div>
 
@@ -62,11 +63,11 @@ function handleSignUp(): void {
                 <div class="control">
                     <input name="password-input" type="password" ref="password-tag" class="input"
                         :class="{ 'is-danger': inputtedContentWrong }" placeholder="***********"
-                        @keyup.enter="handleSignUp" />
+                        @keyup.enter="handleSignIn" />
                 </div>
             </div>
 
-            <a class="button is-size-6 is-fullwidth is-primary" @click="handleSignUp">Sign in</a>
+            <a class="button is-size-6 is-fullwidth is-primary" @click="handleSignIn">Sign in</a>
         </form>
 
         <div class="box center-self">
