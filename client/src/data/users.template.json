@@ -14,7 +14,37 @@
 
             "permission": {
                 "admin": false
-            }
+            },
+            
+            "workout_goals": [
+                {
+                    "is_most_recent": false,
+                    "is_active": false,
+                    "progress": 0, // Out of 100
+                    "goal_header": "",
+                    "goal_body": ""
+                }
+            ],
+
+            "workout_stats": {
+                "calories_burned": 0,
+                "total_time_working_out": 0
+            },
+
+            "nutrition_goals": [
+                {
+                    "nutrition_header": "",
+                    "nutrient_value": 0,
+                    "nutrient_desired_value": 0
+                }
+            ],
+
+            "friends": [
+                {
+                    "username": ""
+                }
+            ]
+            
         }
     ]
 }
