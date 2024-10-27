@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { ref } from 'vue'
-import { getUserThatLoggedIn } from '@/model/users';
+import { getUserThatLoggedIn, setUserThatLoggedIn, default_user } from '@/model/users';
+import router from '@/router';
 
 const searchModalActive = ref(false)
 
@@ -11,6 +12,11 @@ function enableSearchModal() {
 
 function disableSearchModal() {
     searchModalActive.value = false
+}
+
+function handleSignOut() {
+    setUserThatLoggedIn(default_user)
+    router.push('/')
 }
 
 </script>
@@ -28,14 +34,9 @@ function disableSearchModal() {
         <div class="navbar-menu">
             <div class="navbar-start">
                 <RouterLink class="navbar-item" to="/dashboard">Welcome back {{ getUserThatLoggedIn().account_detail.name }}</RouterLink>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <div class="navbar-link">Progress</div>
-
-                    <div class="navbar-dropdown">
-                        <RouterLink to="/my-progress" class="navbar-item">My Progress</RouterLink>
-                        <RouterLink to="/group-progress" class="navbar-item">Group Progress</RouterLink>
-                    </div>
-                </div>
+                
+                <RouterLink to="/my-progress" class="navbar-item">Progress</RouterLink>
+                <RouterLink to="/group-progress" class="navbar-item">Group Progress</RouterLink>
 
                 <!-- Enable the search modal -->
                 <a class="navbar-item" @click="enableSearchModal">Find Workout Partners</a>
@@ -47,7 +48,7 @@ function disableSearchModal() {
                     <div class="modal-background" @click="disableSearchModal"></div>
                     <div class="modal-content">
                         <div class="box field">
-                            <label for="search-" class="label is-size-6">Wh</label>
+                            <label for="search-" class="label is-size-6">Who</label>
                             <div class="control">
                                 <input name="text-input" type="text" class="input" placeholder="Type here" @keyup.enter="disableSearchModal"/>
                             </div>
@@ -57,7 +58,7 @@ function disableSearchModal() {
             </div>
 
             <div class="navbar-end">
-
+                <a class="navbar-item" @click="handleSignOut">Sign out</a>
             </div>
         </div>
 

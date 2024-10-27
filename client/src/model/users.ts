@@ -30,7 +30,7 @@ export function getUsers(): User[] {
     return data.users
 }
 
-const default_user: User = {
+export const default_user: User = {
     "credential": {
         "username": "NOTSET",
         "email": "NOONE@example.com",
