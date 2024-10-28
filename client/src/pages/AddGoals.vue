@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NavBar from '@/components/NavBar.vue';
 import { getUserThatLoggedIn, type NutritionGoal, type User, type WorkoutGoal } from '@/model/users';
 import router from '@/router';
 import { useTemplateRef } from 'vue';
@@ -43,6 +44,7 @@ function handleAddingGoal(goalType: string): void {
 </script>
 
 <template>
+    <NavBar></NavBar>
     <div class="field center-content">
         <form class="box center-self">
             <div class="field">

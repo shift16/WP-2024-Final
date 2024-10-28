@@ -3,6 +3,7 @@ import { getUser, getUserThatLoggedIn, type User, type Friend, type WorkoutGoal,
 import { getFriends } from '@/model/friends';
 import { ref, type Ref } from 'vue';
 import GoalCard from '@/components/GoalCard.vue';
+import NavBar from '@/components/NavBar.vue';
 
 const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
 const loggedInUserFriends: Ref<Friend[]> = ref(getFriends(loggedInUser.value))
@@ -25,6 +26,7 @@ function getRecentActivity(friend: Friend): WorkoutGoal[] {
 </script>
 
 <template>
+    <NavBar></NavBar>
     <div class="is-flex is-flex-direction-column center-content">
         <div class="is-flex is-flex-direction-row box center-self" v-for="friend in loggedInUserFriends">
             <p class="block mx-5 center-text center-self">{{ getFriendName(friend) }}'s recent activity</p>
