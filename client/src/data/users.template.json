@@ -20,9 +20,10 @@
                 {
                     "is_most_recent": false,
                     "is_active": false,
-                    "progress": 0, // Out of 100
+                    "progress": 0,
                     "goal_header": "",
-                    "goal_body": ""
+                    "goal_body": "",
+                    "goal_type": ""
                 }
             ],
 

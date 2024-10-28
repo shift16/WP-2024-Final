@@ -1,20 +1,89 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref } from 'vue'
-import { getUserThatLoggedIn, setUserThatLoggedIn, default_user } from '@/model/users';
+import { ref, useTemplateRef, type Ref } from 'vue'
+import { getUserThatLoggedIn, getUsers, setUserThatLoggedIn, default_user, type User, type Friend } from '@/model/users';
+import { addFriend, getFriends } from '@/model/friends';
 import router from '@/router';
 
-const searchModalActive = ref(false)
+const searchModalActive: Ref<boolean> = ref(false)
 
-function enableSearchModal() {
+const navBarBurgerActive: Ref<boolean> = ref(false)
+
+const similarUsers: Ref<User[]> = ref([] as User[])
+
+const allUsers: User[] = getUsers()
+
+const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
+
+const searchInputElement = useTemplateRef("searchInput")
+
+function handleSearchInput(searchHTMLElment: HTMLInputElement): void {
+    const searchText: string = searchHTMLElment.value
+
+    if (searchText.length >= 1) {
+        const searchRegex: RegExp = new RegExp("^" + searchText.toLowerCase())
+
+        const newSimilarUsers: User[] = [] as User[]
+
+        allUsers.forEach((user: User) => {
+            const userAccountName: string = user.accountDetail.name
+
+            if (searchRegex.test(userAccountName.toLowerCase()) === true)
+                newSimilarUsers.push(user)
+        })
+
+        similarUsers.value = newSimilarUsers
+    } else {
+        similarUsers.value = []
+    }
+}
+
+function showDialogAddedFriendDialog(isAlreadyFriends: boolean): void {
+    // TODO!!!!
+}
+
+function handleSearching(possibleUserToAdd: User[]): void {
+    if (possibleUserToAdd.length === 1) {
+        let isAlreadyFriends: boolean = false
+
+        const userToAdd = possibleUserToAdd[0]
+        const userFriends: Friend[] = getFriends(loggedInUser.value)
+        const userToAddUsername = userToAdd.credential.username
+
+        userFriends.forEach((friendName: Friend) => {
+            if (friendName.username === userToAddUsername) {
+                isAlreadyFriends = true
+            }
+        })
+
+        if (isAlreadyFriends === false) {
+            addFriend(loggedInUser.value, userToAdd)
+        }
+
+        disableSearchModal()
+        showDialogAddedFriendDialog(isAlreadyFriends)
+    }
+
+}
+
+function toggleNavBarBurger(): void {
+    navBarBurgerActive.value = !navBarBurgerActive.value
+}
+
+function enableSearchModal(): void {
     searchModalActive.value = true
 }
 
-function disableSearchModal() {
+function disableSearchModal(): void {
     searchModalActive.value = false
+    if (searchInputElement !== null)
+        if (searchInputElement.value !== null)
+            searchInputElement.value.value = ""
+
+    similarUsers.value = []
 }
 
-function handleSignOut() {
+function handleSignOut(): void {
     setUserThatLoggedIn(default_user)
     router.push('/')
 }
@@ -23,34 +92,49 @@ function handleSignOut() {
 
 <template>
     <nav class="navbar">
-        <div class="navbar-brand">
-            <!-- To add -->
-
-            <div class="navbar-burger">
-                <!-- To add -->
+        <div class="navbar-brand mx-2 is-flex is-justify-content-center is-align-content-center is-align-items-center">
+            <i class="fas fa-solid fa-dumbbell icon-rotation"></i>
+            <div class="navbar-burger" @click="toggleNavBarBurger" :class="{ 'is-active': navBarBurgerActive }">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
 
-        <div class="navbar-menu">
+        <div class="navbar-menu" :class="{ 'is-active': navBarBurgerActive }">
             <div class="navbar-start">
-                <RouterLink class="navbar-item" to="/dashboard">Welcome back {{ getUserThatLoggedIn().account_detail.name }}</RouterLink>
-                
-                <RouterLink to="/my-progress" class="navbar-item">Progress</RouterLink>
-                <RouterLink to="/group-progress" class="navbar-item">Group Progress</RouterLink>
+                <RouterLink class="navbar-item" to="/dashboard">Dashboard</RouterLink>
+
+                <RouterLink to="/workouts" class="navbar-item">Add Goals</RouterLink>
+                <RouterLink to="/posts" class="navbar-item">Friend's Posts</RouterLink>
 
                 <!-- Enable the search modal -->
                 <a class="navbar-item" @click="enableSearchModal">Find Workout Partners</a>
 
                 <!-- The search modal -->
-                <div id="find-workout-partners-modal" class="modal" :class="{'is-active': searchModalActive}">
+                <div id="find-workout-partners-modal" class="modal" :class="{ 'is-active': searchModalActive }">
                     <!-- If the modal's background gets clicked on then, hide the modal -->
 
                     <div class="modal-background" @click="disableSearchModal"></div>
                     <div class="modal-content">
-                        <div class="box field">
-                            <label for="search-" class="label is-size-6">Who</label>
-                            <div class="control">
-                                <input name="text-input" type="text" class="input" placeholder="Type here" @keyup.enter="disableSearchModal"/>
+                        <div class="box">
+                            <div class="field">
+                                <label class="label is-size-6">Who would you like to workout with?</label>
+                                <div class="control">
+                                    <input name="text-input" ref="searchInput"
+                                        @input="handleSearchInput($refs.searchInput)" type="text" class="input"
+                                        placeholder="Their name" @keyup.enter="handleSearching(similarUsers)" />
+                                </div>
+                            </div>
+
+                            <div class="block" v-for="sUser in similarUsers">
+                                <div class="is-flex is-flex-direction-flow block is-clickable"
+                                    @click="handleSearching([sUser])">
+                                    <img class="pr-2" :src="sUser.accountDetail.profilePicture"
+                                        :alt="'Picture of ' + sUser.accountDetail.name">
+                                    <p>{{ sUser.accountDetail.name }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,3 +148,21 @@ function handleSignOut() {
 
     </nav>
 </template>
+
+<style>
+.icon-rotation {
+    transform: rotate(-20deg);
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+</style>

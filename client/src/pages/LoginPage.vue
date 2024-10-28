@@ -47,42 +47,45 @@ function handleSignIn(): void {
 </script>
 
 <template>
-    <div class="center-content">
-        <div class="box center-self has-text-danger" :class="{'is-hidden': !inputtedContentWrong}">
-            <p>The username or password is incorrect</p>
-        </div>
-        
-        <form class="box center-self">
-            <div class="field">
-                <label for="username" class="label is-size-6">Username</label>
-                <div class="control">
-                    <input name="username" type="text" ref="username-tag" class="input"
-                    :class="{ 'is-danger': inputtedContentWrong }" placeholder="johndoe123"
-                    @keyup.enter="handleSignIn" />
-                </div>
+    <main>
+        <div class="center-content">
+            <div class="box center-self has-text-danger" :class="{ 'is-hidden': !inputtedContentWrong }">
+                <p>The username or password is incorrect</p>
             </div>
-            
-            <div class="field">
-                <label for="password-input" class="label is-size-6">Password</label>
-                <div class="control">
-                    <input name="password-input" type="password" ref="password-tag" class="input"
-                    :class="{ 'is-danger': inputtedContentWrong }" placeholder="***********"
-                    @keyup.enter="handleSignIn" />
+
+            <form class="box center-self">
+                <div class="field">
+                    <label for="username" class="label is-size-6">Username</label>
+                    <div class="control">
+                        <input name="username" type="text" ref="username-tag" class="input"
+                            :class="{ 'is-danger': inputtedContentWrong }" placeholder="johndoe123"
+                            @keyup.enter="handleSignIn" />
+                    </div>
                 </div>
+
+                <div class="field">
+                    <label for="password-input" class="label is-size-6">Password</label>
+                    <div class="control">
+                        <input name="password-input" type="password" ref="password-tag" class="input"
+                            :class="{ 'is-danger': inputtedContentWrong }" placeholder="***********"
+                            @keyup.enter="handleSignIn" />
+                    </div>
+                </div>
+
+                <a class="button is-size-6 is-fullwidth is-primary" @click="handleSignIn">Sign in</a>
+            </form>
+
+
+            <div class="box center-self">
+                Don't have an account? <RouterLink to="/sign-up">Click here</RouterLink>
             </div>
-            
-            <a class="button is-size-6 is-fullwidth is-primary" @click="handleSignIn">Sign in</a>
-        </form>
-        
-        
-        <div class="box center-self">
-            Don't have an account? <RouterLink to="/sign-up">Click here</RouterLink>
+
         </div>
-        
-    </div>
+    </main>
 </template>
 
 <style>
+
 .center-content {
     display: flex;
     justify-content: center;

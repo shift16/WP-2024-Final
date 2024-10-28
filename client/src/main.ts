@@ -1,6 +1,6 @@
 import 'bulma/css/bulma.css' 
 // Imports Bulma
-import '@fortawesome/fontawesome-free/css/all.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
 // Imports the free font-aweseome icons
 
 import { createApp } from 'vue'

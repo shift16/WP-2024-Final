@@ -9,7 +9,7 @@ import GoalCard from '../components/GoalCard.vue';
   <NavBar></NavBar> <!-- Add the Navbar -->
   <div class="columns ml-5 mr-5 mt-5">
     <div class="column message is-one-third">
-      <h1 class="message-header">Your Activity</h1>
+      <h1 class="message-header">Recent Activity</h1>
       <div class="message-body">
         <GoalCard :current-progress="10">
           <template #card-title>Walk 10 Miles</template>
@@ -20,7 +20,7 @@ import GoalCard from '../components/GoalCard.vue';
     </div>
 
     <div class="column message">
-      <h1 class="message-header has-text-centered">Recent Active Goals</h1>
+      <h1 class="message-header has-text-centered">Recent Goals</h1>
       <div class="message-body is-flex is-flex-direction-row apply-gap">
         <GoalCard>
           <template #card-title>Run 10 miles</template>
@@ -44,8 +44,8 @@ import GoalCard from '../components/GoalCard.vue';
   </div>
 
   <div class="columns ml-5 mr-5">
-    <div class="column is-two-thirds message">
-      <h1 class="message-header">Nutrition</h1>
+    <div class="column message">
+      <h1 class="message-header">Nutrition Goals</h1>
       <div class="message-body">
         <div class="is-flex is-flex-direction-row">        
           
@@ -89,13 +89,11 @@ import GoalCard from '../components/GoalCard.vue';
           <EmbeddedCard>
             <template #card-title>Calories Burned</template>
             <template #top-content>0</template>
-            <template #bottom-content>{{null}}</template>
           </EmbeddedCard>
 
           <EmbeddedCard>
             <template #card-title>Total Duration</template>
             <template #top-content>0</template>
-            <template #bottom-content>{{ null }}</template>
           </EmbeddedCard>
         </div>
       </p>
