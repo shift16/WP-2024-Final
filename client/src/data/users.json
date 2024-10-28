@@ -49,9 +49,6 @@
             ],
             "friends": [
                 {
-                    "username": "janeDoe"
-                },
-                {
                     "username": "bobSmith"
                 }
             ]
@@ -98,6 +95,104 @@
                     "username": "aliceJohnson"
                 }
             ]
+        },
+
+        {
+            "credential": {
+                "username": "activeAlice",
+                "email": "alice.active@example.com",
+                "password": "securePassword123"
+            },
+            "accountDetail": {
+                "name": "Alice Active",
+                "profilePicture": "https://example.com/alice-active-profile-picture.jpg"
+            },
+            "permission": {
+                "admin": false
+            },
+            "workoutGoals": [
+                {
+                    "isMostRecent": true,
+                    "isActive": true,
+                    "progress": 50,
+                    "goalHeader": "Run a marathon",
+                    "goalBody": "Run a marathon in the next 6 months",
+                    "goalType": "running"
+                },
+                {
+                    "isMostRecent": false,
+                    "isActive": false,
+                    "progress": 0,
+                    "goalHeader": "Lift 100kg",
+                    "goalBody": "Lift 100kg in the next 3 months",
+                    "goalType": "weightlifting"
+                }
+            ],
+            "workoutStats": {
+                "caloriesBurned": 1000,
+                "totalTimeWorkingOut": 3600
+            },
+            "nutritionGoals": [
+                {
+                    "nutritionHeader": "Daily protein intake",
+                    "nutrientValue": 50,
+                    "nutrientDesiredValue": 100
+                },
+                {
+                    "nutritionHeader": "Daily carbohydrate intake",
+                    "nutrientValue": 200,
+                    "nutrientDesiredValue": 250
+                }
+            ],
+            "friends": [
+                {
+                    "username": "fitBob"
+                }
+            ]
+        },
+        {
+            "credential": {
+                "username": "joggingJane",
+                "email": "jane.jogging@example.com",
+                "password": "securePassword456"
+            },
+            "accountDetail": {
+                "name": "Jane Jogging",
+                "profilePicture": "https://example.com/jane-jogging-profile-picture.jpg"
+            },
+            "permission": {
+                "admin": false
+            },
+            "workoutGoals": [
+                {
+                    "isMostRecent": true,
+                    "isActive": true,
+                    "progress": 75,
+                    "goalHeader": "Complete a triathlon",
+                    "goalBody": "Complete a triathlon in the next 9 months",
+                    "goalType": "triathlon"
+                }
+            ],
+            "workoutStats": {
+                "caloriesBurned": 500,
+                "totalTimeWorkingOut": 1800
+            },
+            "nutritionGoals": [
+                {
+                    "nutritionHeader": "Daily fat intake",
+                    "nutrientValue": 20,
+                    "nutrientDesiredValue": 30
+                }
+            ],
+            "friends": [
+                {
+                    "username": "activeAlice"
+                },
+                {
+                    "username": "powerfulPaul"
+                }
+            ]
         }
+        
     ]
 }

@@ -17,19 +17,26 @@ const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
 
 const searchInputElement = useTemplateRef("searchInput")
 
+const notificationText: Ref<string> = ref("NO TEXT")
+
+const showNotification: Ref<boolean> = ref(false)
+
 function handleSearchInput(searchHTMLElment: HTMLInputElement): void {
     const searchText: string = searchHTMLElment.value
 
     if (searchText.length >= 1) {
         const searchRegex: RegExp = new RegExp("^" + searchText.toLowerCase())
+        const loggedInUserUsername: string = loggedInUser.value.credential.username
 
         const newSimilarUsers: User[] = [] as User[]
 
         allUsers.forEach((user: User) => {
             const userAccountName: string = user.accountDetail.name
 
-            if (searchRegex.test(userAccountName.toLowerCase()) === true)
-                newSimilarUsers.push(user)
+            // Ensure the user isn't the loggedInUser
+            if (user.credential.username !== loggedInUserUsername)
+                if (searchRegex.test(userAccountName.toLowerCase()) === true)
+                    newSimilarUsers.push(user)
         })
 
         similarUsers.value = newSimilarUsers
@@ -38,8 +45,18 @@ function handleSearchInput(searchHTMLElment: HTMLInputElement): void {
     }
 }
 
-function showDialogAddedFriendDialog(isAlreadyFriends: boolean): void {
-    // TODO!!!!
+function showDialogAddedFriendDialog(isAlreadyFriends: boolean, user: User): void {
+    if (isAlreadyFriends === true) 
+        notificationText.value = "Your already friends with " + user.accountDetail.name
+    else 
+        notificationText.value = "You just became friends with " + user.accountDetail.name
+    
+    showNotification.value = true
+
+    setTimeout(() => {
+        showNotification.value = false
+        notificationText.value = ""
+    }, 2000);
 }
 
 function handleSearching(possibleUserToAdd: User[]): void {
@@ -50,6 +67,7 @@ function handleSearching(possibleUserToAdd: User[]): void {
         const userFriends: Friend[] = getFriends(loggedInUser.value)
         const userToAddUsername = userToAdd.credential.username
 
+        // If the user is already friends with someone, then they shouldn't be able to friend them again
         userFriends.forEach((friendName: Friend) => {
             if (friendName.username === userToAddUsername) {
                 isAlreadyFriends = true
@@ -61,7 +79,7 @@ function handleSearching(possibleUserToAdd: User[]): void {
         }
 
         disableSearchModal()
-        showDialogAddedFriendDialog(isAlreadyFriends)
+        showDialogAddedFriendDialog(isAlreadyFriends, userToAdd)
     }
 
 }
@@ -106,39 +124,11 @@ function handleSignOut(): void {
             <div class="navbar-start">
                 <RouterLink class="navbar-item" to="/dashboard">Dashboard</RouterLink>
 
-                <RouterLink to="/workouts" class="navbar-item">Add Goals</RouterLink>
-                <RouterLink to="/posts" class="navbar-item">Friend's Posts</RouterLink>
+                <RouterLink to="/goals" class="navbar-item">Add Goals</RouterLink>
+                <RouterLink to="/friends" class="navbar-item">Friend's Activity</RouterLink>
 
                 <!-- Enable the search modal -->
                 <a class="navbar-item" @click="enableSearchModal">Find Workout Partners</a>
-
-                <!-- The search modal -->
-                <div id="find-workout-partners-modal" class="modal" :class="{ 'is-active': searchModalActive }">
-                    <!-- If the modal's background gets clicked on then, hide the modal -->
-
-                    <div class="modal-background" @click="disableSearchModal"></div>
-                    <div class="modal-content">
-                        <div class="box">
-                            <div class="field">
-                                <label class="label is-size-6">Who would you like to workout with?</label>
-                                <div class="control">
-                                    <input name="text-input" ref="searchInput"
-                                        @input="handleSearchInput($refs.searchInput)" type="text" class="input"
-                                        placeholder="Their name" @keyup.enter="handleSearching(similarUsers)" />
-                                </div>
-                            </div>
-
-                            <div class="block" v-for="sUser in similarUsers">
-                                <div class="is-flex is-flex-direction-flow block is-clickable"
-                                    @click="handleSearching([sUser])">
-                                    <img class="pr-2" :src="sUser.accountDetail.profilePicture"
-                                        :alt="'Picture of ' + sUser.accountDetail.name">
-                                    <p>{{ sUser.accountDetail.name }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="navbar-end">
@@ -146,6 +136,38 @@ function handleSignOut(): void {
             </div>
         </div>
 
+        <!-- The search modal -->
+        <div id="find-workout-partners-modal" class="modal" :class="{ 'is-active': searchModalActive }">
+            <!-- If the modal's background gets clicked on then, hide the modal -->
+
+            <div class="modal-background" @click="disableSearchModal"></div>
+            <div class="modal-content">
+                <div class="box">
+                    <div class="field">
+                        <label class="label is-size-6">Who would you like to workout with?</label>
+                        <div class="control">
+                            <input name="text-input" ref="searchInput" @input="handleSearchInput($refs.searchInput)"
+                                type="text" class="input" placeholder="Their name"
+                                @keyup.enter="handleSearching(similarUsers)" />
+                        </div>
+                    </div>
+
+                    <div class="block" v-for="sUser in similarUsers">
+                        <div class="is-flex is-flex-direction-flow block is-clickable"
+                            @click="handleSearching([sUser])">
+                            <img class="pr-2" :src="sUser.accountDetail.profilePicture"
+                                :alt="'Picture of ' + sUser.accountDetail.name">
+                            <p>{{ sUser.accountDetail.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The notification that appears after the search is completed -->
+        <div class="notification popup" v-if="showNotification">
+            <p>{{ notificationText }}</p>
+        </div>
     </nav>
 </template>
 
