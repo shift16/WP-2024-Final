@@ -15,7 +15,7 @@
             },
             "workoutGoals": [
                 {
-                    "isMostRecent": true,
+                    "isRecent": true,
                     "isActive": true,
                     "progress": 50,
                     "goalHeader": "Run a marathon",
@@ -23,7 +23,7 @@
                     "goalType": "running"
                 },
                 {
-                    "isMostRecent": false,
+                    "isRecent": false,
                     "isActive": false,
                     "progress": 0,
                     "goalHeader": "Lift 100kg",
@@ -49,7 +49,7 @@
             ],
             "friends": [
                 {
-                    "username": "bobSmith"
+                    "username": "janeDoe"
                 }
             ]
         },
@@ -64,11 +64,11 @@
                 "profilePicture": "https://example.com/jane-doe-profile-picture.jpg"
             },
             "permission": {
-                "admin": false
+                "admin": true
             },
             "workoutGoals": [
                 {
-                    "isMostRecent": true,
+                    "isRecent": true,
                     "isActive": true,
                     "progress": 75,
                     "goalHeader": "Complete a triathlon",
@@ -92,7 +92,7 @@
                     "username": "johnDoe"
                 },
                 {
-                    "username": "aliceJohnson"
+                    "username": "joggingJane"
                 }
             ]
         },
@@ -112,7 +112,7 @@
             },
             "workoutGoals": [
                 {
-                    "isMostRecent": true,
+                    "isRecent": true,
                     "isActive": true,
                     "progress": 50,
                     "goalHeader": "Run a marathon",
@@ -120,7 +120,7 @@
                     "goalType": "running"
                 },
                 {
-                    "isMostRecent": false,
+                    "isRecent": false,
                     "isActive": false,
                     "progress": 0,
                     "goalHeader": "Lift 100kg",
@@ -146,7 +146,7 @@
             ],
             "friends": [
                 {
-                    "username": "fitBob"
+                    "username": "johnDoe"
                 }
             ]
         },
@@ -165,7 +165,7 @@
             },
             "workoutGoals": [
                 {
-                    "isMostRecent": true,
+                    "isRecent": true,
                     "isActive": true,
                     "progress": 75,
                     "goalHeader": "Complete a triathlon",

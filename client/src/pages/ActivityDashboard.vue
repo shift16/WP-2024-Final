@@ -2,6 +2,10 @@
 import NavBar from '../components/NavBar.vue';
 import EmbeddedCard from '../components/EmbeddedCard.vue';
 import GoalCard from '../components/GoalCard.vue';
+import { getUserThatLoggedIn, type User, type WorkoutGoal, getActiveWorkout } from '@/model/users';
+import { ref, type Ref } from 'vue';
+
+const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
 
 </script>
 
@@ -9,36 +13,26 @@ import GoalCard from '../components/GoalCard.vue';
   <NavBar></NavBar> <!-- Add the Navbar -->
   <div class="columns ml-5 mr-5 mt-5">
     <div class="column message is-one-third">
-      <h1 class="message-header">Recent Activity</h1>
+      <h1 class="message-header">{{ loggedInUser.accountDetail.name }}'s Current Activity</h1>
       <div class="message-body">
-        <GoalCard :current-progress="10">
-          <template #card-title>Walk 10 Miles</template>
-          <template #card-content>Walk 10 miles around campus</template>
+        <GoalCard :current-progress="getActiveWorkout(loggedInUser).progress">
+          <template #card-title>{{ getActiveWorkout(loggedInUser).goalHeader }}</template>
+          <template #card-content>{{ getActiveWorkout(loggedInUser).goalBody }}</template>
           <template #progress-bar></template>
         </GoalCard>
       </div>
     </div>
 
     <div class="column message">
-      <h1 class="message-header has-text-centered">Recent Goals</h1>
+      <h1 class="message-header has-text-centered">Workout Goals</h1>
       <div class="message-body is-flex is-flex-direction-row apply-gap">
-        <GoalCard>
-          <template #card-title>Run 10 miles</template>
-          <template #card-content>Go to New Paltz and run around campus</template>
-          <template #progress-bar ></template>
-        </GoalCard>
-
-        <GoalCard>
-          <template #card-title>Hike at Mohonk</template>
-          <template #card-content>Go to Mohonk Preserve and hike with Kamala Harris</template>
-          <template #progress-bar></template>
-        </GoalCard>
-
-        <GoalCard>
-          <template #card-title>Hike at Minnewaska</template>
-          <template #card-content>Go to Minnewaska State Park Preserve and hike with Brandon</template>
-          <template #progress-bar></template>
-        </GoalCard>
+        <div class="workout-goal-container" v-for="workoutGoal in loggedInUser.workoutGoals">
+          <GoalCard :current-progress="workoutGoal.progress">
+            <template #card-title>{{ workoutGoal.goalHeader }}</template>
+            <template #card-content>{{ workoutGoal.goalBody }}</template>
+            <template #progress-bar></template>
+          </GoalCard>
+        </div>
       </div>
     </div>
   </div>
@@ -47,52 +41,32 @@ import GoalCard from '../components/GoalCard.vue';
     <div class="column message">
       <h1 class="message-header">Nutrition Goals</h1>
       <div class="message-body">
-        <div class="is-flex is-flex-direction-row">        
-          
-          <EmbeddedCard>
-            <template #card-title>Calories</template>
-            <template #top-content>0</template>
-            <template #bottom-content>1000</template>
-          </EmbeddedCard>
-          
-          <div class="vertical-divider ml-5 mr-5"></div>
+        <div class="is-flex is-flex-direction-row">
+          <div class="nutrient-element is-flex is-flex-direction-row" v-for="(nGoal, index) in loggedInUser.nutritionGoals">
+            <EmbeddedCard>
+              <template #card-title>{{ nGoal.nutritionHeader }}</template>
+              <template #top-content>{{ nGoal.nutrientValue }}</template>
+              <template #bottom-content>{{ nGoal.nutrientDesiredValue }}</template>
+            </EmbeddedCard>
 
-          <EmbeddedCard>
-            <template #card-title>Protein</template>
-            <template #top-content>0</template>
-            <template #bottom-content>?</template>
-          </EmbeddedCard>
-
-          <div class="vertical-divider ml-5 mr-5"></div>
-
-          <EmbeddedCard>
-            <template #card-title>Calories</template>
-            <template #top-content>0</template>
-            <template #bottom-content>1000</template>
-          </EmbeddedCard>
-
-          <div class="vertical-divider ml-5 mr-5"></div>
-
-          <EmbeddedCard>
-            <template #card-title>Calories</template>
-            <template #top-content>0</template>
-            <template #bottom-content>1000</template>
-          </EmbeddedCard>
+            <div class="vertical-divider ml-5 mr-5" v-if="index !== loggedInUser.nutritionGoals.length - 1"></div>
+          </div>      
         </div>
       </div>
     </div>
 
     <div class="column message">
-      <h1 class="message-header">Workout Stats</h1>
+      <h1 class="message-header">Goal Statistics</h1>
       <p class="message-body">
+        <!-- TODO Add stats! -->
         <div class="is-flex center-flex is-flex-direction-column">
           <EmbeddedCard>
-            <template #card-title>Calories Burned</template>
+            <template #card-title>Workout Goals Completed</template>
             <template #top-content>0</template>
           </EmbeddedCard>
 
           <EmbeddedCard>
-            <template #card-title>Total Duration</template>
+            <template #card-title>Nutrition Goals Completed</template>
             <template #top-content>0</template>
           </EmbeddedCard>
         </div>

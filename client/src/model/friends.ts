@@ -1,4 +1,4 @@
-import { getUsers, type Friend, type User } from "./users";
+import { type Friend, type User } from "./users";
 
 export function addFriend(theUser: User, newFriend: User): void {
     theUser.friends.push({

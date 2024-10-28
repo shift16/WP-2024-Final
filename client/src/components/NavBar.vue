@@ -21,6 +21,8 @@ const notificationText: Ref<string> = ref("NO TEXT")
 
 const showNotification: Ref<boolean> = ref(false)
 
+const isAdmin: Ref<boolean> = ref(loggedInUser.value.permission.admin)
+
 function handleSearchInput(searchHTMLElment: HTMLInputElement): void {
     const searchText: string = searchHTMLElment.value
 
@@ -129,6 +131,7 @@ function handleSignOut(): void {
 
                 <!-- Enable the search modal -->
                 <a class="navbar-item" @click="enableSearchModal">Find Workout Partners</a>
+                <RouterLink to='/admin' class="navbar-item" v-if="isAdmin">Admin View</RouterLink>
             </div>
 
             <div class="navbar-end">
@@ -176,6 +179,7 @@ function handleSignOut(): void {
     transform: rotate(-20deg);
 }
 
+/* The CSS below was written by Llama 3.1 70B */
 .popup {
     position: fixed;
     top: 50%;
