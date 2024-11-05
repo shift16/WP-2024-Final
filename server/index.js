@@ -1,7 +1,6 @@
 const express = require('express')
 const pg_driver = require('pg')
 
-
 const PORT = 3000
 
 const app = express()
