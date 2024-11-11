@@ -9,6 +9,11 @@ app.get('/', (req, res) => {
   res.send("Hello, world!")
 })
 
-app.listen(PORT, () => {
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirnam + '/dist/index.html')
+})
+
+app.listen(PORT, (err, data) => {
   console.log("Server is running!!!! At http://localhost:" + PORT)
 })

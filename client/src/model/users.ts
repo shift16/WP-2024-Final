@@ -156,7 +156,7 @@ export function getActiveWorkout(user: User): WorkoutGoal {
 }
 
 export function getRecentWorkouts(user: User): WorkoutGoal[] {
-    let recentWorkouts: WorkoutGoal[] = [] as WorkoutGoal[]
+    const recentWorkouts: WorkoutGoal[] = [] as WorkoutGoal[]
 
     user.workoutGoals.forEach((workout: WorkoutGoal) => {
         if (workout.isRecent)
