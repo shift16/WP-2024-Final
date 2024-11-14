@@ -1,8 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,vue,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,vue,node
 
-*.vite
-*.xopp
 ### Node ###
 # Logs
 logs
@@ -12,7 +10,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
-package-lock.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
