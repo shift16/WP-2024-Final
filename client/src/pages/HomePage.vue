@@ -5,8 +5,8 @@
 <template>
 	<NavBar></NavBar>
 
-	<img class="background-image" src="../assets/background_no_black_bar.jpeg">
-	
+	<img class="background-image" src="../assets/background.jpeg">
+
 </template>
 
 <style>
