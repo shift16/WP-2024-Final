@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
+
 </script>
 
 <template>
@@ -22,11 +23,13 @@
                 <RouterLink class="navbar-item active-page" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" to="/about">About Us</RouterLink>
                 <RouterLink class="navbar-item" to="/tracker">Fitness Tracker</RouterLink>
-                <RouterLink class="navbar-item" to="/friends">Friends</RouterLink>
-                <RouterLink class="navbar-item" to='/dashboard'>Statistics</RouterLink>
+                <RouterLink class="navbar-item" to='/stats'>Your Statistics</RouterLink>
+                <RouterLink class="navbar-item" to="/friends">Friend's Activity</RouterLink>
+                <RouterLink class="navbar-item" to='/search'>Find Friends</RouterLink>
             </div>
 
             <div class="navbar-end">
+                <RouterLink class="navbar-item" to='/admin'>Admin View</RouterLink>
                 <RouterLink class="navbar-item" to="/login">Login</RouterLink>
             </div>
         </div>
