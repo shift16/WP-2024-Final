@@ -2,7 +2,7 @@
 import NavBar from '../components/NavBar.vue';
 import EmbeddedCard from '../components/EmbeddedCard.vue';
 import GoalCard from '../components/GoalCard.vue';
-import { getUserThatLoggedIn, type User, type WorkoutGoal, getActiveWorkout } from '@/model/users';
+import { getUserThatLoggedIn, type User, type WorkoutGoal, getActiveWorkout } from 'model/users';
 import { ref, type Ref } from 'vue';
 
 const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())

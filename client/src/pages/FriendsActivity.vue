@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { getUser, getUserThatLoggedIn, type User, type Friend, type WorkoutGoal, getRecentWorkouts } from '@/model/users';
-import { getFriends } from '@/model/friends';
+import { getUser, getUserThatLoggedIn, type User, type Friend, type WorkoutGoal, getRecentWorkouts } from 'model/users';
+import { getFriends } from 'model/friends';
 import { ref, type Ref } from 'vue';
-import GoalCard from '@/components/GoalCard.vue';
-import NavBar from '@/components/NavBar.vue';
+import GoalCard from 'components/GoalCard.vue';
+import NavBar from 'components/NavBar.vue';
 
 const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
 const loggedInUserFriends: Ref<Friend[]> = ref(getFriends(loggedInUser.value))

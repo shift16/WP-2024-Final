@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
-import { getUserThatLoggedIn, type NutritionGoal, type User, type WorkoutGoal } from '@/model/users';
-import router from '@/router';
-import { useTemplateRef } from 'vue';
+import NavBar from 'components/NavBar.vue';
+import { getUserThatLoggedIn, type NutritionGoal, type User, type WorkoutGoal } from 'model/users';
+import router from 'router';
 
-
-const goalHeaderField = useTemplateRef('goal-header')
-const goalBodyField = useTemplateRef('goal-body')
-const loggedInUser: User = getUserThatLoggedIn()
+// const goalHeaderField = useTemplateRef('goal-header')
+// const goalBodyField = useTemplateRef('goal-body')
+// const loggedInUser: User = getUserThatLoggedIn()
 
 function handleAddingGoal(goalType: string): void {
     const goalHeaderText: string | undefined = goalHeaderField.value?.value

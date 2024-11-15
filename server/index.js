@@ -1,5 +1,4 @@
 const express = require('express')
-const pg_driver = require('pg')
 
 const PORT = 3000
 
@@ -11,7 +10,7 @@ app.get('/', (req, res) => {
 
 
 app.get('*', (req, res) => {
-  res.sendFile(__dirnam + '/dist/index.html')
+  res.sendFile(__dirname + '/dist/index.html')
 })
 
 app.listen(PORT, (err, data) => {

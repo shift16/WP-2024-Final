@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 import { RouterLink } from 'vue-router';
-import { getUsers, setUserThatLoggedIn } from '@/model/users';
+import { getUsers, setUserThatLoggedIn } from 'model/users';
 import { useTemplateRef, ref } from 'vue'
-import router from '@/router';
+import router from 'router';
 
 const users = getUsers()
 

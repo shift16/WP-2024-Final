@@ -1,18 +1,22 @@
 <script setup lang="ts">
 
+defineProps({
+    card: Object
+})
+
 </script>
 
 <template>
     <div class="block has-text-centered">
         <h2 class="is-size-4 mb-3">
-            <slot name="card-title"></slot>
+            {{ card.title }}
         </h2>
         <p class="is-size-5">
-            <slot name="top-content"></slot>
+            {{ card.top_content }}
         </p>
         <div class="horizontal-divider"></div>
         <p class="is-size-5">
-            <slot name="bottom-content"></slot>
+            {{ card.bottom_content }}
         </p>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
-import { getUsers, type User, removeUser, getUserThatLoggedIn, getUser, default_user } from '@/model/users';
-import { ref, useTemplateRef, type Ref } from 'vue';
+import NavBar from 'components/NavBar.vue';
+import { getUsers, type User, removeUser, getUserThatLoggedIn, getUser, default_user } from 'model/users';
+import { ref, type Ref } from 'vue';
 
 const allUsers: Ref<User[]> = ref(getUsers())
 
@@ -9,11 +9,11 @@ const loggedInUser: Ref<User> = ref(getUserThatLoggedIn())
 const editModalActive: Ref<boolean> = ref(false)
 const userBeingEditted: Ref<User> = ref(default_user)
 
-const newNameTag = useTemplateRef('new-name-tag')
-const newProfilePicture = useTemplateRef('new-profile-picture-tag')
-const newEmailTag = useTemplateRef('username-tag')
-const yesInputTag = useTemplateRef('yes-input')
-const noInputTag = useTemplateRef('no-input')
+// const newNameTag = useTemplateRef('new-name-tag')
+// const newProfilePicture = useTemplateRef('new-profile-picture-tag')
+// const newEmailTag = useTemplateRef('username-tag')
+// const yesInputTag = useTemplateRef('yes-input')
+// const noInputTag = useTemplateRef('no-input')
 
 function deleteUser(userToDelete: string): void {
     // Ensure the user being deleted is not the currentUser
