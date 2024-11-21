@@ -5,20 +5,20 @@
 
 <template>
     <nav class="navbar transparent-background">
-        <div class="navbar-brand">
-            <RouterLink class="icon-size navbar-item" to='/'>
-                <i class="fas fa-solid fa-dumbbell icon-rotation"></i>
-                <button class="navbar-burger" @click="toggleNavBarBurger" :class="{ 'is-active': navBarBurgerActive }">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="has-text-weight-bold">FitFusion</div>
+        <div class="navbar-brand set-color-white">
+            <RouterLink to="/" class="is-flex is-align-content-center is-justify-content-center is-align-items-center navbar-logo px-1">
+                <div class="has-text-weight-bold is-size-5 mx-2">FitFusion</div>
+                <i class="fas fa-solid fa-dumbbell icon-rotation icon-size"></i>
             </RouterLink>
+            <button class="navbar-burger" @click="toggleNavBarBurger" :class="{ 'is-active': navBarBurgerActive }">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
 
-        <div class="navbar-menu has-text-weight-bold">
+        <div class="navbar-menu has-text-weight-bold transparent-background">
             <div class="navbar-start">
                 <RouterLink class="navbar-item active-page" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" to="/about">About Us</RouterLink>
@@ -37,6 +37,11 @@
 </template>
 
 <style>
+    /* A bunch of custom styling  */
+    .navbar-burger:hover {
+        background-color: #ec3642;
+    }
+
     .icon-rotation {
         transform: rotate(-20deg);
     }
@@ -49,12 +54,22 @@
         background-color: rgba(0, 0, 0, 0);
     }
 
+    .set-color-white {
+        color: whitesmoke;
+        --bulma-link-text: white;
+        --bulma-navbar-burger-color: white;
+    }
+
     a.navbar-item {
         --bulma-navbar-item-color: white;
         background-color: rgba(0, 0, 0, 0);
     }
 
     .navbar-item:hover {
+        background-color: #ec3642;
+    }
+
+    .navbar-logo:hover {
         background-color: #ec3642;
     }
 
