@@ -17,6 +17,3 @@
 * Friend's Activity contains Friend's Activity
 * Find Friends contains People Search
 * Admin View contains Admin
-
-
-First thing I need you all to do if you are interested in attending is to update your membership to NSBE. Collegiate membership is $15 for the year and gives you access to NSBE benefits, including their internship and job board. Once you have paid for your membership, please let me know. Please get this done by December 1st so we can move on to registration for the conference. https://nsbe.org/collegiate/
