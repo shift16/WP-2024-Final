@@ -1,5 +1,25 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
+    import { ref, type Ref } from 'vue'
+
+    const props = defineProps({
+        currentPage: String
+    })
+
+    const theCurrentPage: String = props.currentPage || 'not found!'
+    const isHomeActive: Boolean = theCurrentPage === 'home'
+    const isAboutActive: Boolean = theCurrentPage === 'about'
+    const isFitnessTrackerActive: Boolean = theCurrentPage === 'tracker'
+    const isStatsPageActive: Boolean = theCurrentPage === 'stats'
+    const isFriendsPageActive: Boolean = theCurrentPage === 'friends'
+    const isFindFriendsModalActive: Boolean = theCurrentPage === 'search'
+
+    const isBurgerActive: Ref<Boolean> = ref(false)
+
+    function toggleNavBarBurger() {
+        isBurgerActive.value = !isBurgerActive.value
+    }
+
 
 </script>
 
@@ -10,7 +30,7 @@
                 <div class="has-text-weight-bold is-size-5 mx-2">FitFusion</div>
                 <i class="fas fa-solid fa-dumbbell icon-rotation icon-size"></i>
             </RouterLink>
-            <button class="navbar-burger" @click="toggleNavBarBurger" :class="{ 'is-active': navBarBurgerActive }">
+            <button class="navbar-burger" @click="toggleNavBarBurger" :class="{ 'is-active': isBurgerActive }">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -20,12 +40,12 @@
 
         <div class="navbar-menu has-text-weight-bold transparent-background">
             <div class="navbar-start">
-                <RouterLink class="navbar-item active-page" to="/">Home</RouterLink>
-                <RouterLink class="navbar-item" to="/about">About Us</RouterLink>
-                <RouterLink class="navbar-item" to="/tracker">Fitness Tracker</RouterLink>
-                <RouterLink class="navbar-item" to='/stats'>Your Statistics</RouterLink>
-                <RouterLink class="navbar-item" to="/friends">Friend's Activity</RouterLink>
-                <RouterLink class="navbar-item" to='/search'>Find Friends</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isHomeActive}" to="/">Home</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isAboutActive}" to="/about">About Us</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isFitnessTrackerActive}" to="/tracker">Fitness Tracker</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isStatsPageActive}" to='/stats'>Your Statistics</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isFriendsPageActive}" to="/friends">Friend's Activity</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isFindFriendsModalActive}" to='/search'>Find Friends</RouterLink>
             </div>
 
             <div class="navbar-end">
