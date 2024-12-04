@@ -6,13 +6,13 @@
         currentPage: String
     })
 
-    const theCurrentPage: String = props.currentPage || 'not found!'
-    const isHomeActive: Boolean = theCurrentPage === 'home'
-    const isAboutActive: Boolean = theCurrentPage === 'about'
-    const isFitnessTrackerActive: Boolean = theCurrentPage === 'tracker'
-    const isStatsPageActive: Boolean = theCurrentPage === 'stats'
-    const isFriendsPageActive: Boolean = theCurrentPage === 'friends'
-    const isFindFriendsModalActive: Boolean = theCurrentPage === 'search'
+    const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
+    const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
+    const isFitnessTrackerActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
+    const isStatsPageActive: Ref<Boolean> = ref(props.currentPage === 'stats')
+    const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
+    const isFindFriendsModalActive: Ref<Boolean> = ref(props.currentPage === 'search')
+
 
     const isBurgerActive: Ref<Boolean> = ref(false)
 
@@ -25,8 +25,8 @@
 
 <template>
     <nav class="navbar transparent-background">
-        <div class="navbar-brand set-color-white">
-            <RouterLink to="/" class="is-flex is-align-content-center is-justify-content-center is-align-items-center navbar-logo px-1">
+        <div class="navbar-brand set-text-color-white">
+            <RouterLink to="/testing123" class="is-flex is-align-content-center is-justify-content-center is-align-items-center navbar-logo px-1">
                 <div class="has-text-weight-bold is-size-5 mx-2">FitFusion</div>
                 <i class="fas fa-solid fa-dumbbell icon-rotation icon-size"></i>
             </RouterLink>
@@ -38,7 +38,7 @@
             </button>
         </div>
 
-        <div class="navbar-menu has-text-weight-bold transparent-background">
+        <div class="navbar-menu has-text-weight-bold is-size-6-5 transparent-background" :class="{'is-active': isBurgerActive}">
             <div class="navbar-start">
                 <RouterLink class="navbar-item" :class="{'active-page': isHomeActive}" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isAboutActive}" to="/about">About Us</RouterLink>
@@ -56,10 +56,14 @@
     </nav>
 </template>
 
-<style>
+<style scoped>
     /* A bunch of custom styling  */
     .navbar-burger:hover {
         background-color: #ec3642;
+    }
+
+    .is-size-6-5 {
+        font-size: medium;
     }
 
     .icon-rotation {
@@ -74,7 +78,7 @@
         background-color: rgba(0, 0, 0, 0);
     }
 
-    .set-color-white {
+    .set-text-color-white {
         color: whitesmoke;
         --bulma-link-text: white;
         --bulma-navbar-burger-color: white;
@@ -94,6 +98,6 @@
     }
 
     .active-page {
-        border-bottom: 6px solid #ec3642;
+        border-bottom: 0.4rem solid #ec3642;
     }
 </style>
