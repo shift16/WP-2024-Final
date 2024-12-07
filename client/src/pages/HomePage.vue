@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 	import BackgroundImage from '../components/BackgroundImage.vue';
 	import NavBar from '../components/NavBar.vue'
-	import Footer from '../components/Footer.vue'
+	import Footer from '../components/FooterBar.vue'
 	import { RouterLink } from 'vue-router'
 
 </script>

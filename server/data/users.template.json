@@ -1,51 +1,37 @@
 {
     "users": [
         {
-            "credential": {
-                "username": "",
-                "email": "",
-                "password": ""
-            },
-
-            "account_detail": {
-                "name": "",
-                "profile_picture": ""
-            },
-
-            "permission": {
-                "admin": false
-            },
-            
-            "workout_goals": [
-                {
-                    "is_most_recent": false,
-                    "is_active": false,
-                    "progress": 0,
-                    "goal_header": "",
-                    "goal_body": "",
-                    "goal_type": ""
-                }
-            ],
-
-            "workout_stats": {
-                "calories_burned": 0,
-                "total_time_working_out": 0
-            },
-
-            "nutrition_goals": [
-                {
-                    "nutrition_header": "",
-                    "nutrient_value": 0,
-                    "nutrient_desired_value": 0
-                }
-            ],
-
+            "picture": "a path to a user",
+            "email": "example@gmail.com",
+            "full_name": "John Doe",
+            "isAdmin": false,
             "friends": [
+                "@janeDoe"
+            ],
+            "totalStats": {
+                "stepsTaken": 0,
+                "distanceTraveled": 0,
+                "caloriesBurned": 0,
+                "activeMinutes": 0,
+                "averageIntensity": 0
+            },
+            "posts": [
                 {
-                    "username": ""
+                    "content": "Hello, world!",
+                    "postDate": "01/13/2001",
+                    "stats": {
+                        "stepsTaken": 0,
+                        "distanceTraveled": 0,
+                        "caloriesBurned": 0,
+                        "activeMinutes": 0,
+                        "workoutIntensity": 0
+                    }
                 }
-            ]
-            
+            ],
+            "credentials": {
+                "handle": "@johnDoe",
+                "password": "password123"
+            }
         }
     ]
 }

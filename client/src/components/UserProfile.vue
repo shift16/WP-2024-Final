@@ -1,27 +1,29 @@
 <script setup lang="ts">
-    import { getUserInformation } from '../model.users.ts'
+    import { getUserInformaton } from '../model/users'
     import {ref, type Ref} from 'vue'
     
     const props = defineProps({
         requestedHandle: String
     })
 
-    const usersPicture: Ref<String> = ref('src/assets//professional-firefighter.jpg')
-        const usersActualName: Ref<String> = ref('undefined')
-        const usersHandle: Ref<String> = ref('undefined')
-        const usersLatestPost: Ref<String> = ref('undefined') 
-        const usersLatestPostDatePretty: Ref<String> = ref('undefined')
-        const usersLatestPostDateDirect: Ref<String> = ref('1/1/1970')
+    // Temp \/
+    const usersPicture: Ref<string> = ref('src/assets/professional-firefighter.jpg')
+    const usersActualName: Ref<string> = ref('undefined')
+    const usersHandle: Ref<string> = ref('undefined')
+    const usersLatestPostText: Ref<string> = ref('undefined') 
+    const usersLatestPostDatePretty: Ref<string> = ref('undefined')
+    const usersLatestPostDateDirect: Ref<string> = ref('1/1/1970')
 
     if (props.requestedHandle === undefined) {
         console.error('When using the UserProfile component, a string must be passed for requestedHandle')
     } else {
-        const usersPicture: Ref<String> = ref('undefined')
-        const usersActualName: Ref<String> = ref('undefined')
-        const usersHandle: Ref<String> = ref('undefined')
-        const usersLatestPost: Ref<String> = ref('undefined') 
-        const usersLatestPostDatePretty: Ref<String> = ref('undefined')
-        const usersLatestPostDateDirect: Ref<String> = ref('1/1/1970')
+        const usersPicture: Ref<string> = ref('undefined')
+        const usersActualName: Ref<string> = ref('undefined')
+        const usersHandle: Ref<string> = ref('undefined')
+        const usersLatestPostText: Ref<string> = ref('undefined') 
+        const usersLatestPostDatePretty: Ref<string> = ref('undefined')
+        const usersLatestPostDateDirect: Ref<string> = ref('1/1/1970')
+        
         
     }
 </script>
@@ -49,7 +51,7 @@
                     </div>
                     
                     <div class="content">
-                        {{ usersLatestPost }}
+                        {{ usersLatestPostText }}
                         <br />
                         <time :datetime="usersLatestPostDateDirect">{{ usersLatestPostDatePretty }}</time>
                     </div>
@@ -65,7 +67,13 @@
     }
     
     .red-shadow {
-        animation: red-glow infinite ease 5s;
+        box-shadow: 
+        0.75rem 0.75rem 1rem #ec3642,
+        -0.75rem -0.75rem 1rem #ec3642;
+    }
+    
+    .red-shadow:hover {
+        animation: red-glow infinite ease 3s;
     }
 
     @keyframes red-glow {
