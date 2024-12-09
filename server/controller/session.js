@@ -12,7 +12,7 @@ router.post(REQUEST_SESSION_API_URL, (req, res) => {
 
     if (typeof userHandle != 'string') {
         res.status(422).send({ 
-            error: 'bad-username', 
+            error: 'bad-input', 
             message: 'Username is not of type string' 
         })
         return // Stop execution
@@ -20,7 +20,7 @@ router.post(REQUEST_SESSION_API_URL, (req, res) => {
 
     if (typeof userPassword != 'string') {
         res.status(422).send({
-            error: 'bad-password',
+            error: 'bad-input',
             message: 'Password is not of type string' 
         })
         return // Stop execution
@@ -35,7 +35,10 @@ router.post(REQUEST_SESSION_API_URL, (req, res) => {
             else
                 res
                     .status(401)
-                    .send('Username or password incorrect\n')
+                    .send({
+                        error: 'bad-input',
+                        message: 'Username or password incorrect'
+                    })
         })
 })
 
