@@ -11,12 +11,18 @@ router.post(REQUEST_SESSION_API_URL, (req, res) => {
     const { userHandle, userPassword } = req.body
 
     if (typeof userHandle != 'string') {
-        res.status(422).send('Username is not of type string\n')
+        res.status(422).send({ 
+            error: 'bad-username', 
+            message: 'Username is not of type string' 
+        })
         return // Stop execution
     }
 
     if (typeof userPassword != 'string') {
-        res.status(422).send('Password is not of type string\n')
+        res.status(422).send({
+            error: 'bad-password',
+            message: 'Password is not of type string' 
+        })
         return // Stop execution
     }
     
