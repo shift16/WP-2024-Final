@@ -1,27 +1,10 @@
 const express = require('express')
-const https = require('https')
-// const { getConnection } = require('./model/supabase')
-require('dotenv').config() // Adds the extra environment variables from the .env file
-const {getConnection} = require('./model/supabase')
-const sessionController = require('./controller/session').router
-const jwt = require('jsonwebtoken')
+const { sessionController, SESSION_ROOT_API_URL } = require('./controller/session')
+const ROOT_API_URL = '/api/v1'
 
 const PORT = 3000
 
 const app = express()
-// console.log(process.env)
-// const conn = getConnection()
-
-// async function test(handle) {
-//   const test_data_fetch = await conn
-//     .from("users")
-//     .select('*')
-//     .eq("user_id", 1)
-  
-//     console.log(test_data_fetch)
-// }
-
-// test()
 
 app.get('/', (req, res) => {
   res.send("Hello, world!")
@@ -29,7 +12,8 @@ app.get('/', (req, res) => {
 
 app.use(express.json())
 
-app.use("/api/v1/login", sessionController)
+// The session controller
+app.use(ROOT_API_URL + SESSION_ROOT_API_URL, sessionController)
 
 
 // app.get('*', (req, res) => {
