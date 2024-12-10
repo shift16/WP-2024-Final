@@ -1,7 +1,6 @@
+// Model used for requesting data from the database
 require("dotenv").config()
 const { createClient } = require('@supabase/supabase-js')
-
-console.log(process.env.SUPABASE_URL)
 
 module.exports = {
 	getConnection() {

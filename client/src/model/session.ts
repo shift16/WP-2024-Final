@@ -1,6 +1,6 @@
 import { api } from "./myFetch"
 
-const REQUEST_SESSION_API = "/login/request-session"
+const REQUEST_SESSION_API = "/session/request-token"
 
 type TokenObject = {
     token: string

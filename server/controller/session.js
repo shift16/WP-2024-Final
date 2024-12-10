@@ -1,45 +1,43 @@
-// The controller for session management
-const sessionModel = require('../model/session')
-const express = require('express')
-const router = express.Router()
+// The controller for session REST API
+const usersModel = require('../model/users')
+const { registerTokenWithId } = require('../middleware/jwt')
+const router = require('express').Router()
 
 // API URLs
-const ROOT_API_URL = '/login'
-const REQUEST_SESSION_API_URL = '/request-session'
+const ROOT_API_URL = '/session'
+const REQUEST_TOKEN_API_URL = '/request-token'
 
-router.post(REQUEST_SESSION_API_URL, (req, res) => {
+router.post(REQUEST_TOKEN_API_URL, (req, res, next) => {
     const { userHandle, userPassword } = req.body
 
     if (typeof userHandle != 'string') {
-        res.status(422).send({ 
+        return res.status(422).json({ 
             error: 'bad-input', 
             message: 'Username is not of type string' 
         })
-        return // Stop execution
     }
 
     if (typeof userPassword != 'string') {
-        res.status(422).send({
+        return res.status(422).json({
             error: 'bad-input',
             message: 'Password is not of type string' 
         })
-        return // Stop execution
     }
     
-    sessionModel.registerSession(userHandle, userPassword)
-        .then(token => {
-            if (token != null)
-                res
-                    .status(200)
-                    .send({'token': token})
+    return usersModel.getUserIdFromCredentials(userHandle, userPassword)
+        .then(userId => {
+            if (userId != null)
+                res.status(200).json({'token': registerTokenWithId(userId)})
             else
-                res
-                    .status(401)
-                    .send({
+                res.status(401).json({
                         error: 'bad-input',
                         message: 'Username or password incorrect'
                     })
-        })
+            })
+        .catch(next)
 })
 
-module.exports = { 'sessionController': router, 'SESSION_ROOT_API_URL': ROOT_API_URL }
+module.exports = { 
+    'sessionController': router, 
+    'SESSION_ROOT_API_URL': ROOT_API_URL 
+}

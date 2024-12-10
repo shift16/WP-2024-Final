@@ -17,7 +17,8 @@ export function api<T>(url: string, requestType: 'GET' | 'POST', data: object | 
 		returnedPromise = fetch(API_URL + url, {
 			method: requestType,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...(sessionToken != null ? {'Authorization': `Bearer ${sessionToken}`} : {})
 			},
 			body: JSON.stringify(data)
 		}).then((x) => x.json())
@@ -25,7 +26,8 @@ export function api<T>(url: string, requestType: 'GET' | 'POST', data: object | 
 		returnedPromise = fetch(API_URL + url, {
 			method: requestType,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...(sessionToken != null ? {'Authorization': `Bearer ${sessionToken}`} : {})
 			}
 		}).then((x) => x.json())
 	}
