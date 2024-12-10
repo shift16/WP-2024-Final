@@ -1,12 +1,11 @@
 <script setup lang="ts">
     import NavBar from '../components/NavBar.vue';
-    import BackgroundImage from '../components/BackgroundImage.vue';
     import Footer from '../components/FooterBar.vue'
 
     // Temp
     import {createSession} from '../model/session'
 
-    createSession('tester', '1234')
+    createSession('tester', '12345')
         .then((test) => {
             console.log(test)
         })
@@ -15,7 +14,7 @@
 
 <template>
     <NavBar :current-page="'about'"></NavBar>
-    <BackgroundImage :background-image-name="'two-people-running-with-sports.jpeg'"></BackgroundImage>
+    <div class="background-image"></div>
     <div class="is-flex is-flex-direction-column is-align-items-center mt-6">
         <h1 class="title set-text-color-white">About Us</h1>
 
@@ -62,5 +61,17 @@
 
     .width-50-percent {
         width: 60%;
+    }
+
+    .background-image {
+        background: url('/src/assets/two-people-running-with-sports.jpeg');
+        background-size: contain;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        filter: opacity(25%);
+        z-index: -1;
     }
 </style>

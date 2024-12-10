@@ -1,13 +1,13 @@
 import { api } from "./myFetch"
 
-const REQUEST_SESSION_API = "/session/request-token"
+const REQUEST_LOGIN_API = "/public/session/login"
 
 type TokenObject = {
     token: string
 }
 
 export async function createSession(userHandle: String, userPassword: String): Promise<string> {
-    const sessionObject = await api(REQUEST_SESSION_API, 'POST', {
+    const sessionObject = await api(REQUEST_LOGIN_API, 'POST', {
         'userHandle': userHandle,
         'userPassword': userPassword
     }, null) as TokenObject

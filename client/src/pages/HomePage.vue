@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-	import BackgroundImage from '../components/BackgroundImage.vue';
 	import NavBar from '../components/NavBar.vue'
 	import Footer from '../components/FooterBar.vue'
 	import { RouterLink } from 'vue-router'
@@ -17,7 +16,7 @@
 		</RouterLink>
 	</div>
 
-	<BackgroundImage :background-image-name="'multiple-workouts.jpeg'"></BackgroundImage>
+	<div class="background-image"></div>
 	<Footer />
 </template>
 
@@ -46,5 +45,18 @@
 	/* Set the color of the text to white */
 	.set-text-color-white {
         color: white;
+    }
+
+	/* Background image */
+	.background-image {
+        background: url('/src/assets/multiple-workouts.jpeg');
+        background-size: contain;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        filter: opacity(25%);
+        z-index: -1;
     }
 </style>

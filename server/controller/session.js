@@ -6,6 +6,7 @@ const router = require('express').Router()
 // API URLs
 const ROOT_API_URL = '/session'
 const LOGIN_API_URL = '/login'
+const SIGN_UP_API_URL = '/signup' // TODO
 
 router.post(LOGIN_API_URL, (req, res, next) => {
     const { userHandle, userPassword } = req.body
