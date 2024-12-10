@@ -19,6 +19,16 @@ router.get(GET_USER_API_URL, (req, res, next) => {
             'message': 'The requested ID must be of type int'
         })
     }
+    
+    const userInfo = req.userInfo
+
+    // Ensure the user is either an Admin or is the current user
+    if (userInfo.isAdmin === false)
+        if (userInfo.userId !== requestedID)
+            return res.status(403).json({
+                'error': 'not-authorized', 
+                'message': "User does not have permission to get this user's info"
+            })
 
     usersModel.getUserInfo(requestedID)
         .then(userInfo => {
@@ -33,6 +43,7 @@ router.get(GET_USER_API_URL, (req, res, next) => {
         .catch(next)
 })
 
+// Anyone can use this API
 router.post(ADD_USER_API_URL, (req, res, next) => {
     usersModel.addNewUser(req.body)
         .then(error => {
@@ -54,7 +65,16 @@ router.patch(UPDATE_USER_API_URL, (req, res, next) => {
             'message': 'The requested ID must be of type int'
         })
     }
+    
+    const userInfo = req.userInfo
 
+    // Ensure the current user is an Admin to use this API
+    if (userInfo.isAdmin === false)
+        return res.status(403).json({
+            'error': 'not-authorized',
+            'message': "User is not authorized to update user's info"
+        })
+    
     usersModel.updateUserInformation(requestedID, req.body)
         .then(error => {
             if (error == null)
@@ -75,6 +95,14 @@ router.delete(DELETE_USER_API_URL, (req, res, next) => {
             'message': 'The requested ID must be of type int'
         })
     }
+
+    const userInfo = req.userInfo
+    // Ensure the current user is an Admin to use this API
+    if (userInfo.isAdmin === false)
+        return res.status(403).json({
+            'error': 'not-authorized',
+            'message': "User is not authorized to update user's info"
+        })
 
     usersModel.deleteUser(requestedID)
         .then(error => {

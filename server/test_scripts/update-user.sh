@@ -1,7 +1,7 @@
 #!/bin/bash
-curl -X PATCH http://localhost:3000/api/v1/protected/users/$ID \
+curl -X PATCH http://localhost:3000/api/v1/protected/users/$id \
     -H "Content-Type: application/json" \
-    -H "Authorization:Bearer $TOKEN" \
+    -H "Authorization:Bearer $token" \
     -d '{'\
 '"picture": "default",'\
 '"email": "eeeeEEEEEe@gmail.com",'\

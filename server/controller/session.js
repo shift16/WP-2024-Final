@@ -5,9 +5,9 @@ const router = require('express').Router()
 
 // API URLs
 const ROOT_API_URL = '/session'
-const REQUEST_TOKEN_API_URL = '/request-token'
+const LOGIN_API_URL = '/login'
 
-router.post(REQUEST_TOKEN_API_URL, (req, res, next) => {
+router.post(LOGIN_API_URL, (req, res, next) => {
     const { userHandle, userPassword } = req.body
 
     if (typeof userHandle != 'string') {
@@ -24,10 +24,10 @@ router.post(REQUEST_TOKEN_API_URL, (req, res, next) => {
         })
     }
     
-    return usersModel.getUserIdFromCredentials(userHandle, userPassword)
-        .then(userId => {
-            if (userId != null)
-                res.status(200).json({'token': registerTokenWithId(userId)})
+    return usersModel.getUserFromCredentials(userHandle, userPassword)
+        .then((user) => {
+            if (user != null)
+                res.status(200).json({'token': registerTokenWithId(user.user_id, user.is_admin)})
             else
                 res.status(401).json({
                         error: 'bad-input',

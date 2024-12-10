@@ -16,12 +16,13 @@ const app = express()
 //   res.send("Hello, world!")
 // })
 
-// app.all('*', (req, res) => {
-//   console.log(req.headers)
-// })
-
 app.use(ROOT_API_URL, express.json())
 app.use(ROOT_API_URL + AUTHENTICATED_API_URL, verifyToken)
+app.all('*', (req, res, next) => {
+  console.log(req.userInfo) // TEMP
+  next()
+})
+
 
 // The session controller (No auth required)
 app.use(ROOT_API_URL + PUBLIC_API_URL + SESSION_ROOT_API_URL, sessionController)

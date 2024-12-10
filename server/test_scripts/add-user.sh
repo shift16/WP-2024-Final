@@ -1,7 +1,7 @@
 #!/bin/bash
 curl -X POST http://localhost:3000/api/v1/protected/users/ \
     -H "Content-Type: application/json" \
-    -H "Authorization:Bearer $TOKEN" \
+    -H "Authorization:Bearer $token" \
     -d '{'\
 '"picture": "default",'\
 '"email": "e@gmail.com",'\

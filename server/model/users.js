@@ -2,7 +2,7 @@
 const { getConnection } = require('./supabase')
 const conn = getConnection()
 
-async function getUserIdFromCredentials(userHandle, userPassword) {
+async function getUserFromCredentials(userHandle, userPassword) {
     const { data } = await conn
         .from('users')
         .select('*')
@@ -10,7 +10,7 @@ async function getUserIdFromCredentials(userHandle, userPassword) {
         .eq('password', userPassword)
 
     if (data.length == 1)
-        return data[0].user_id
+        return data[0]
     else
         return null
 }
@@ -46,7 +46,7 @@ function isObjEmpty(obj) {
 
 async function updateUserInformation(userId, newInfo) {
     if (isObjEmpty(newInfo))
-        return 'No input provided'
+        return 'JSON is empty'
     
     const { error } = await conn
         .from('users')
@@ -81,7 +81,7 @@ async function deleteUser(userId) {
 }
 
 module.exports = {
-    getUserIdFromCredentials,
+    getUserFromCredentials,
     getUserInfo,
     addNewUser,
     updateUserInformation,
