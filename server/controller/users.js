@@ -4,10 +4,27 @@ const usersModel = require('../model/users')
 
 // API URLs
 const ROOT_API_URL = '/users'
+const GET_ALL_USERS_API_URL = '/all'
 const GET_USER_API_URL = '/:id'
 const ADD_USER_API_URL = '/'
 const UPDATE_USER_API_URL = '/:id'
 const DELETE_USER_API_URL = '/:id'
+
+router.get(GET_ALL_USERS_API_URL, (req, res, next) => {
+    // Ensure the user is an Admin
+    const userInfo = req.userInfo
+    if (userInfo.isAdmin === false)
+        return res.status(403).json({
+            'error': 'not-authorized',
+            'message': "User does not have permission to get all user's info"
+        })
+    
+    usersModel.getAllUsers()
+        .then(users => {
+            return res.status(200).json(users)
+        })
+        .catch(next)
+})
 
 router.get(GET_USER_API_URL, (req, res, next) => {
     const requestedID = Number(req.params.id)

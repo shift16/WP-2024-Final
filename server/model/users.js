@@ -27,11 +27,19 @@ async function getUserInfo(userId) {
         return null
 }
 
+async function getAllUsers() {
+    const { data } = await conn
+        .from('users')
+        .select('*')
+
+    return data
+}
+
 async function addNewUser(newUser) {
     const { error } = await conn
         .from('users')
         .insert([newUser])
-    
+
     return error
 }
 
@@ -40,27 +48,27 @@ function isObjEmpty(obj) {
     for (let prop in obj)
         if (Object.hasOwn(obj, prop))
             return false
-    
+
     return true
 }
 
 async function updateUserInformation(userId, newInfo) {
     if (isObjEmpty(newInfo))
         return 'JSON is empty'
-    
+
     const { error } = await conn
         .from('users')
         .update({
-            ...(newInfo.picture ? {'picture': newInfo.picture} : {}),
-            ...(newInfo.email ? {'email': newInfo.email} : {}),
-            ...(newInfo.full_name ? {'full_name': newInfo.full_name} : {}),
-            ...(newInfo.is_admin ? {'is_admin': newInfo.is_admin} : {}),
-            ...(newInfo.total_steps_taken ? {'total_steps_taken': newInfo.total_steps_taken} : {}),
-            ...(newInfo.total_calories_burned ? {'total_calories_burned': newInfo.total_calories_burned} : {}),
-            ...(newInfo.total_active_minutes ? {'total_active_minutes': newInfo.total_active_minutes} : {}),
-            ...(newInfo.average_intensity ? {'average_intensity': newInfo.average_intensity} : {}),
-            ...(newInfo.handle ? {'handle': newInfo.handle} : {}),
-            ...(newInfo.password ? {'password': newInfo.password} : {}),
+            ...(newInfo.picture ? { 'picture': newInfo.picture } : {}),
+            ...(newInfo.email ? { 'email': newInfo.email } : {}),
+            ...(newInfo.full_name ? { 'full_name': newInfo.full_name } : {}),
+            ...(newInfo.is_admin ? { 'is_admin': newInfo.is_admin } : {}),
+            ...(newInfo.total_steps_taken ? { 'total_steps_taken': newInfo.total_steps_taken } : {}),
+            ...(newInfo.total_calories_burned ? { 'total_calories_burned': newInfo.total_calories_burned } : {}),
+            ...(newInfo.total_active_minutes ? { 'total_active_minutes': newInfo.total_active_minutes } : {}),
+            ...(newInfo.average_intensity ? { 'average_intensity': newInfo.average_intensity } : {}),
+            ...(newInfo.handle ? { 'handle': newInfo.handle } : {}),
+            ...(newInfo.password ? { 'password': newInfo.password } : {}),
         })
         .eq('user_id', userId)
 
@@ -85,5 +93,6 @@ module.exports = {
     getUserInfo,
     addNewUser,
     updateUserInformation,
-    deleteUser
+    deleteUser,
+    getAllUsers
 }
