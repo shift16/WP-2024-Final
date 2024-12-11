@@ -19,7 +19,7 @@ const app = express()
 app.use(ROOT_API_URL, express.json())
 app.use(ROOT_API_URL + AUTHENTICATED_API_URL, verifyToken)
 
-app.all('*', (req, res, next) => { // TEMP
+app.all('*', (req, _, next) => { // TEMP
   console.log(req.userInfo) // TEMP
   next() // TEMP
 })
@@ -38,6 +38,6 @@ app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
-app.listen(PORT, (err, data) => {
+app.listen(PORT, _ => {
   console.log("Server is running!!!! At http://localhost:" + PORT)
 })
