@@ -1,9 +1,13 @@
 const express = require('express')
+require("dotenv").config()
 const { sessionController, SESSION_ROOT_API_URL } = require('./controller/session')
 const { usersController, USER_ROOT_API_URL } = require('./controller/users')
 const { friendsController, FRIENDS_ROOT_API_URL} = require('./controller/friends')
 const { postsController, POSTS_ROOT_API_URL } = require('./controller/posts')
 const { verifyToken } = require('./middleware/jwt')
+
+
+const PORT = process.env.PORT || 3000
 
 // API URLs
 const ROOT_API_URL = '/api/v1'
@@ -36,4 +40,6 @@ app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
-app.listen(10000, '0.0.0.0')
+app.listen(PORT, '0.0.0.0', _ => {
+  console.log(`Web app listening on ${PORT}`)
+})
