@@ -71,6 +71,7 @@ router.post(ADD_FRIEND_API_URL, (req, res, next) => {
                         })
                         .catch(next)
                 })
+                .catch(next)
                 
         })
         .catch(next)

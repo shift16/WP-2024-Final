@@ -43,7 +43,7 @@ async function addNewUser(newUser) {
     return error
 }
 
-// Helper function found from StackOverflow
+// Helper function found on StackOverflow
 function isObjEmpty(obj) {
     for (let prop in obj)
         if (Object.hasOwn(obj, prop))

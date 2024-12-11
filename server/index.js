@@ -1,7 +1,8 @@
 const express = require('express')
 const { sessionController, SESSION_ROOT_API_URL } = require('./controller/session')
 const { usersController, USER_ROOT_API_URL } = require('./controller/users')
-const {friendsController, FRIENDS_ROOT_API_URL} = require('./controller/friends')
+const { friendsController, FRIENDS_ROOT_API_URL} = require('./controller/friends')
+const { postsController, POSTS_ROOT_API_URL } = require('./controller/posts')
 const { verifyToken } = require('./middleware/jwt')
 
 // API URLs
@@ -29,9 +30,11 @@ app.use(ROOT_API_URL + PUBLIC_API_URL + SESSION_ROOT_API_URL, sessionController)
 app.use(ROOT_API_URL + AUTHENTICATED_API_URL + USER_ROOT_API_URL, usersController)
 // The friends controller (Auth required)
 app.use(ROOT_API_URL + AUTHENTICATED_API_URL + FRIENDS_ROOT_API_URL, friendsController)
+// The posts controller (Auth required)
+app.use(ROOT_API_URL + AUTHENTICATED_API_URL + POSTS_ROOT_API_URL, postsController)
 
 app.use(express.static(__dirname + "/dist")) // Sending static files
-app.get('*', (req, res) => {
+app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
