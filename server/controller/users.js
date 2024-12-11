@@ -6,7 +6,6 @@ const usersModel = require('../model/users')
 const ROOT_API_URL = '/users'
 const GET_ALL_USERS_API_URL = '/all'
 const GET_USER_API_URL = '/:id'
-const ADD_USER_API_URL = '/' // Pending removal
 const UPDATE_USER_API_URL = '/:id'
 const DELETE_USER_API_URL = '/:id'
 
@@ -52,18 +51,6 @@ router.get(GET_USER_API_URL, (req, res, next) => {
                 res.status(404).json({
                     'message': 'User does not exist'
                 })
-        })
-        .catch(next)
-})
-
-// Anyone can use this API // Might be replaced with /signup from sessionController
-router.post(ADD_USER_API_URL, (req, res, next) => {
-    usersModel.addNewUser(req.body)
-        .then(error => {
-            if (error == null)
-                res.status(200).json('User added')
-            else
-                res.status(400).json(error)
         })
         .catch(next)
 })
