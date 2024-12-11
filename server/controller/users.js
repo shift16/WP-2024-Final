@@ -15,7 +15,6 @@ router.get(GET_ALL_USERS_API_URL, (req, res, next) => {
     const userInfo = req.userInfo
     if (userInfo.isAdmin === false)
         return res.status(403).json({
-            'error': 'not-authorized',
             'message': "User does not have permission to get all user's info"
         })
     
@@ -32,7 +31,6 @@ router.get(GET_USER_API_URL, (req, res, next) => {
     // Ensure the ID is an integer
     if (requestedID != parseInt(requestedID)) {
         return res.status(422).json({
-            'error': 'bad-input',
             'message': 'The requested ID must be of type int'
         })
     }
@@ -43,7 +41,6 @@ router.get(GET_USER_API_URL, (req, res, next) => {
     if (userInfo.isAdmin === false)
         if (userInfo.userId !== requestedID)
             return res.status(403).json({
-                'error': 'not-authorized', 
                 'message': "User does not have permission to get this user's info"
             })
 
@@ -53,7 +50,6 @@ router.get(GET_USER_API_URL, (req, res, next) => {
                 res.status(200).json(userInfo)
             else
                 res.status(404).json({
-                    'error': 'bad-input',
                     'message': 'User does not exist'
                 })
         })
@@ -78,7 +74,6 @@ router.patch(UPDATE_USER_API_URL, (req, res, next) => {
     // Ensure the ID is an integer
     if (requestedID != parseInt(requestedID)) {
         return res.status(422).json({
-            'error': 'bad-input',
             'message': 'The requested ID must be of type int'
         })
     }
@@ -88,7 +83,6 @@ router.patch(UPDATE_USER_API_URL, (req, res, next) => {
     // Ensure the current user is an Admin to use this API
     if (userInfo.isAdmin === false)
         return res.status(403).json({
-            'error': 'not-authorized',
             'message': "User is not authorized to update user's info"
         })
     
@@ -108,7 +102,6 @@ router.delete(DELETE_USER_API_URL, (req, res, next) => {
     // Ensure the ID is an integer
     if (requestedID != parseInt(requestedID)) {
         return res.status(422).json({
-            'error': 'bad-input',
             'message': 'The requested ID must be of type int'
         })
     }
@@ -117,7 +110,6 @@ router.delete(DELETE_USER_API_URL, (req, res, next) => {
     // Ensure the current user is an Admin to use this API
     if (userInfo.isAdmin === false)
         return res.status(403).json({
-            'error': 'not-authorized',
             'message': "User is not authorized to update user's info"
         })
 

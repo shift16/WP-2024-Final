@@ -88,11 +88,24 @@ async function deleteUser(userId) {
     return error
 }
 
+async function getUserIdFromHandle(userHandle) {
+    const { data } = await conn
+        .from('users')
+        .select('*')
+        .eq('handle', userHandle)
+    
+    if (data.length === 1)
+        return data[0].user_id
+    else
+        return null
+}
+
 module.exports = {
     getUserFromCredentials,
     getUserInfo,
     addNewUser,
     updateUserInformation,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    getUserIdFromHandle
 }

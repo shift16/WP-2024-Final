@@ -11,9 +11,38 @@ async function getUserFriends(userId) {
     return data
 }
 
+async function addFriend(currentUserId, newFriendId) {
+    await conn
+        .from('friends')
+        .insert([
+            {
+                'user_id': currentUserId,
+                'friend_id': newFriendId
+            },
+            {
+                'user_id': newFriendId,
+                'friend_id': currentUserId
+            }
+        ])
+}
 
+async function removeFriend(currentUserId, removedFriendId) {
+    await conn
+        .from('friends')
+        .delete()
+        .eq('user_id', currentUserId)
+        .eq('friend_id', removedFriendId)
+    
+    await conn
+        .from('friends')
+        .delete()
+        .eq('user_id', removedFriendId)
+        .eq('friend_id', currentUserId)
+}
 
 
 module.exports = {
-    getUserFriends
+    getUserFriends,
+    addFriend,
+    removeFriend
 }
