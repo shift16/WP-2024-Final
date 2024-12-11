@@ -38,6 +38,4 @@ app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
-app.listen(PORT, _ => {
-  console.log("Server is running!!!! At http://localhost:" + PORT)
-})
+app.listen()
