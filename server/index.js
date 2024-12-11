@@ -36,4 +36,4 @@ app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
-app.listen(3000, '127.0.0.1')
+app.listen(10000, '0.0.0.0')
