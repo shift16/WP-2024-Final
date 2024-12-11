@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
     import { ref, type Ref } from 'vue'
+    import { getSession } from '../model/session'
 
     const props = defineProps({
         currentPage: String
@@ -8,13 +9,15 @@
 
     const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
     const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
-    const isFitnessTrackerActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
-    const isStatsPageActive: Ref<Boolean> = ref(props.currentPage === 'stats')
+    const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
     const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
-    const isFindFriendsModalActive: Ref<Boolean> = ref(props.currentPage === 'search')
-
+    const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
 
     const isBurgerActive: Ref<Boolean> = ref(false)
+    const isLoggedIn: Ref<Boolean> = ref(false)
+    const isAdmin: Ref<Boolean> = ref(false)
+
+    // const currentUser 
 
     function toggleNavBarBurger() {
         isBurgerActive.value = !isBurgerActive.value
@@ -41,15 +44,14 @@
         <div class="navbar-menu has-text-weight-bold is-size-6-5 transparent-background" :class="{'is-active': isBurgerActive}">
             <div class="navbar-start">
                 <RouterLink class="navbar-item" :class="{'active-page': isHomeActive}" to="/">Home</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn}" to="/tracker">Your Fitness</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isFriendsPageActive, 'hidden': !isLoggedIn}" to="/friends">Friend's Activity</RouterLink>
+                <RouterLink class="navbar-item" :class="{'hidden': !isLoggedIn}" to='/search'>Find Friends</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isAboutActive}" to="/about">About Us</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isFitnessTrackerActive}" to="/tracker">Your Fitness</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isStatsPageActive}" to='/stats'>Your Statistics</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isFriendsPageActive}" to="/friends">Friend's Activity</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isFindFriendsModalActive}" to='/search'>Find Friends</RouterLink>
             </div>
 
             <div class="navbar-end">
-                <RouterLink class="navbar-item" to='/admin'>Admin View</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isAdminPageActive, 'hidden': !(isAdmin && isLoggedIn)}" to='/admin'>Admin View</RouterLink>
                 <RouterLink class="navbar-item" to="/login">Login</RouterLink>
             </div>
         </div>
@@ -60,6 +62,10 @@
     /* A bunch of custom styling  */
     .navbar-burger:hover {
         background-color: #ec3642;
+    }
+
+    .hidden {
+        display: none;
     }
 
     .is-size-6-5 {

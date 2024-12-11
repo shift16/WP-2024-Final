@@ -1,8 +1,8 @@
 // Defining API URLs
-const ROOT_URL = 'https://wp-2024-final.onrender.com' // TODO MUST CHANGE
+const ROOT_URL = 'http://0.0.0.0:3000/' // TODO MUST CHANGE BACK
 const API_URL = ROOT_URL + '/api/v1'
 
-export function api<T>(url: string, requestType: 'GET' | 'POST' , data: object | null, sessionToken: string | null): Promise<T> {
+export function api<T>(url: string, requestType: 'GET' | 'POST' | 'PATCH' | 'DELETE', data: object | null, sessionToken: string | null): Promise<T> {
 	// Some error handling
 	if (requestType === 'POST')
 		if (data == null)
