@@ -1,15 +1,6 @@
 <script setup lang="ts">
     import NavBar from '../components/NavBar.vue';
     import Footer from '../components/FooterBar.vue'
-
-    // Temp
-    import {createSession} from '../model/session'
-
-    createSession('tester', '12345')
-        .then((test) => {
-            console.log(test)
-        })
-
 </script>
 
 <template>

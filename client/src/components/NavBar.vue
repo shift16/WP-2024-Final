@@ -42,7 +42,7 @@
             <div class="navbar-start">
                 <RouterLink class="navbar-item" :class="{'active-page': isHomeActive}" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isAboutActive}" to="/about">About Us</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isFitnessTrackerActive}" to="/tracker">Fitness Tracker</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isFitnessTrackerActive}" to="/tracker">Your Fitness</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isStatsPageActive}" to='/stats'>Your Statistics</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isFriendsPageActive}" to="/friends">Friend's Activity</RouterLink>
                 <RouterLink class="navbar-item" :class="{'active-page': isFindFriendsModalActive}" to='/search'>Find Friends</RouterLink>
