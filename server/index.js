@@ -12,8 +12,6 @@ const AUTHENTICATED_API_URL = '/protected'
 // No auth required
 const PUBLIC_API_URL = '/public'
 
-const PORT = 3000
-
 const app = express()
 
 app.use(ROOT_API_URL, express.json())
@@ -38,4 +36,4 @@ app.get('*', (_, res) => {
   res.sendFile(__dirname + '/dist/index.html') // Have Vue handle all other URLs
 })
 
-app.listen()
+app.listen(3000, '127.0.0.1')
