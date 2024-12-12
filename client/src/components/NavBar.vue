@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
 const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
-const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
+const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'your-fitness')
 const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
 const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
 const isLoginPageActive: Ref<Boolean> = ref(props.currentPage === 'login')
@@ -64,9 +64,9 @@ function toggleNavBarBurger() {
         <div class="navbar-menu has-text-weight-bold is-size-6-5 transparent-background" :class="{ 'is-active': isBurgerActive }">
             <div class="navbar-start">
                 <RouterLink class="navbar-item" :class="{ 'active-page': isHomeActive }" to="/">Home</RouterLink>
-                <RouterLink class="navbar-item" :class="{ 'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn }" to="/tracker">Your Fitness</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn }" to="/your-fitness">Your Fitness</RouterLink>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isFriendsPageActive, 'hidden': !isLoggedIn }" to="/friends">Friend's Activity</RouterLink>
-                <RouterLink class="navbar-item" :class="{ 'hidden': !isLoggedIn }" to='/search'>Find Friends</RouterLink>
+                <a class="navbar-item" :class="{ 'hidden': !isLoggedIn }">Find Friends</a>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isAboutActive }" to="/about">About Us</RouterLink>
             </div>
 

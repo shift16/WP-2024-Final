@@ -13,18 +13,15 @@ import Footer from '../components/FooterBar.vue'
 
         <div class="is-flex add-row-gap is-size-5 image is-256x256">
             <figure class="is-flex is-flex-direction-column">
-                <img class="is-rounded red-shadow" src="../assets/professional-firefighter.jpg"
-                    alt="AI generated image of a firefighter in uniform" />
+                <img class="is-rounded red-shadow" src="../assets/professional-firefighter.jpg" alt="AI generated image of a firefighter in uniform" />
                 <p class="set-text-color-white center-text mt-2">Henry Jeffrey, <b>CEO</b></p>
             </figure>
             <figure class="is-flex is-flex-direction-column">
-                <img class="is-rounded red-shadow" src="../assets/professional-man.jpg"
-                    alt="AI generated image of a man in business attire" />
+                <img class="is-rounded red-shadow" src="../assets/professional-man.jpg" alt="AI generated image of a man in business attire" />
                 <p class="set-text-color-white center-text mt-2">Johnathon Jain, <b>CTO</b></p>
             </figure>
             <figure class="is-flex is-flex-direction-column">
-                <img class="is-rounded red-shadow" src="../assets/professional-woman.jpg"
-                    alt="AI generated image of a woman in business attire" />
+                <img class="is-rounded red-shadow" src="../assets/professional-woman.jpg" alt="AI generated image of a woman in business attire" />
                 <p class="set-text-color-white center-text mt-2">Gale Jain, <b>CFO</b></p>
             </figure>
         </div>
