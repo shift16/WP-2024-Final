@@ -98,7 +98,7 @@ function toggleNavBarBurger() {
 }
 
 .icon-size {
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .transparent-background {

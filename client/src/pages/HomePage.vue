@@ -30,7 +30,7 @@ if (token != null) {
 			CONSISTENCY LEADS TO SUCCESS
 		</h1>
 
-		<RouterLink to='/tracker' v-if="isLoggedIn"
+		<RouterLink to='/your-fitness' v-if="isLoggedIn"
 			class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
 			WELCOME BACK
 		</RouterLink>

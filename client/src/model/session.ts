@@ -11,19 +11,21 @@ export type TokenObject = {
     is_admin: boolean
 }
 
-export async function loadSession(userHandle: String, userPassword: String): Promise<string> {
-    const sessionObject = await api(ROOT_API_URL + REQUEST_LOGIN_API_URL, 'POST', {
+export async function loadSession(userHandle: String, userPassword: String): Promise<TokenObject | APIResponse> {
+    const sessionObject = await api<TokenObject>(ROOT_API_URL + REQUEST_LOGIN_API_URL, 'POST', {
         'userHandle': userHandle,
         'userPassword': userPassword
-    }, null) as TokenObject
+    }, null)
 
-    const tokenId: string = sessionObject.token 
-    const isAdmin: boolean = sessionObject.is_admin
-
-    sessionStorage.setItem("token", tokenId)
-    sessionStorage.setItem('is_admin', Boolean(isAdmin).toString())
+    if ('token' in sessionObject) {
+        const tokenId: string = sessionObject.token 
+        const isAdmin: boolean = sessionObject.is_admin
     
-    return tokenId
+        sessionStorage.setItem("token", tokenId)
+        sessionStorage.setItem('is_admin', Boolean(isAdmin).toString())
+    }
+    
+    return sessionObject
 }
 
 export type Session = {

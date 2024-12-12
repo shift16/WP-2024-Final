@@ -23,11 +23,6 @@ const app = express()
 app.use(ROOT_API_URL, express.json())
 app.use(ROOT_API_URL + AUTHENTICATED_API_URL, verifyToken)
 
-app.all('*', (req, _, next) => { // TEMP
-  console.log(req.userInfo) // TEMP
-  next() // TEMP
-})
-
 // The session controller (No auth required)
 app.use(ROOT_API_URL + PUBLIC_API_URL + SESSION_ROOT_API_URL, sessionController)
 // The user controller (Auth required)
