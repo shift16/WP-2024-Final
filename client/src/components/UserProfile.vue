@@ -1,31 +1,32 @@
 <script setup lang="ts">
-    import { getUserInformaton } from '../model/users'
     import {ref, type Ref} from 'vue'
+    import { type UserPublicInfo } from '../model/users';
+    import type { Post } from 'src/model/posts';
     
-    const props = defineProps({
-        requestedHandle: String
-    })
+    const props = defineProps<{
+        user: UserPublicInfo,
+        post: Post
+    }>()
+
+    const userToShow = props.user
+    const postToShow = props.post
+
+    // let usersPicture: Ref<string> = ref(userToShow.picture)
+    // let usersActualName: Ref<string> = ref(userToShow.full_name)
+    // let usersHandle: Ref<string> = ref(userToShow.handle)
+    // let usersPostContent: Ref<string> = ref(postToShow.content) 
+    // let usersPostDate: Ref<string> = ref(postToShow.post_date.toDateString())
+    // let usersPostDateDirect: Ref<string> = ref(postToShow.post_date.toISOString())
 
     // Temp \/
-    const usersPicture: Ref<string> = ref('src/assets/professional-firefighter.jpg')
-    const usersActualName: Ref<string> = ref('undefined')
-    const usersHandle: Ref<string> = ref('undefined')
-    const usersLatestPostText: Ref<string> = ref('undefined') 
-    const usersLatestPostDatePretty: Ref<string> = ref('undefined')
-    const usersLatestPostDateDirect: Ref<string> = ref('1/1/1970')
-
-    if (props.requestedHandle === undefined) {
-        console.error('When using the UserProfile component, a string must be passed for requestedHandle')
-    } else {
-        const usersPicture: Ref<string> = ref('undefined')
-        const usersActualName: Ref<string> = ref('undefined')
-        const usersHandle: Ref<string> = ref('undefined')
-        const usersLatestPostText: Ref<string> = ref('undefined') 
-        const usersLatestPostDatePretty: Ref<string> = ref('undefined')
-        const usersLatestPostDateDirect: Ref<string> = ref('1/1/1970')
-        
-        
-    }
+    
+    let usersPicture = ref('src/assets/professional-firefighter.jpg')
+    let usersActualName = ref('undefined')
+   let usersHandle = ref('undefined')
+    let usersPostContent = ref('undefined') 
+   let usersPostDate = ref('undefined')
+  let  usersPostDateDirect = ref((new Date(1000000)).toISOString() )
+   
 </script>
 
 <template>
@@ -51,9 +52,9 @@
                     </div>
                     
                     <div class="content">
-                        {{ usersLatestPostText }}
+                        {{ usersPostContent }}
                         <br />
-                        <time :datetime="usersLatestPostDateDirect">{{ usersLatestPostDatePretty }}</time>
+                        <time :datetime="usersPostDateDirect">{{ usersPostDate }}</time>
                     </div>
                 </div>
             </div>

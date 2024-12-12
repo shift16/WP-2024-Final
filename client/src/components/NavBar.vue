@@ -1,35 +1,52 @@
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
     import { ref, type Ref } from 'vue'
-    import { getSession } from '../model/session'
+    import { getSession, endSession } from '../model/session'
+    import { getLoggedInUserInformation, type User } from '../model/users';
 
-    const props = defineProps({
-        currentPage: String
-    })
+    const props = defineProps<{
+        currentPage: string
+    }>()
 
     const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
     const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
     const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
     const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
     const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
+    const isLoginPage: Ref<Boolean> = ref(props.currentPage === 'login')
 
     const isBurgerActive: Ref<Boolean> = ref(false)
     const isLoggedIn: Ref<Boolean> = ref(false)
     const isAdmin: Ref<Boolean> = ref(false)
 
-    // const currentUser 
+    const { token, is_admin } = getSession()
 
+    if (token != null && is_admin != null) {
+		isLoggedIn.value = true // For instant update of the webpage
+        isAdmin.value = is_admin
+
+        getLoggedInUserInformation(token)
+            .then(userInfo => {
+                if (!('message' in userInfo)) {
+                    isLoggedIn.value = true
+                    isAdmin.value = userInfo.is_admin
+                } else {
+                    isLoggedIn.value = false // Just in case the session token expired
+                    isAdmin.value = false
+                    console.log(userInfo.message)
+                }
+            })
+    }
     function toggleNavBarBurger() {
         isBurgerActive.value = !isBurgerActive.value
     }
-
 
 </script>
 
 <template>
     <nav class="navbar transparent-background">
         <div class="navbar-brand set-text-color-white">
-            <RouterLink to="/testing123" class="is-flex is-align-content-center is-justify-content-center is-align-items-center navbar-logo px-1">
+            <RouterLink to="/" class="is-flex is-align-content-center is-justify-content-center is-align-items-center navbar-logo px-1">
                 <div class="has-text-weight-bold is-size-5 mx-2">FitFusion</div>
                 <i class="fas fa-solid fa-dumbbell icon-rotation icon-size"></i>
             </RouterLink>
@@ -52,7 +69,8 @@
 
             <div class="navbar-end">
                 <RouterLink class="navbar-item" :class="{'active-page': isAdminPageActive, 'hidden': !(isAdmin && isLoggedIn)}" to='/admin'>Admin View</RouterLink>
-                <RouterLink class="navbar-item" to="/login">Login</RouterLink>
+                <RouterLink class="navbar-item" :class="{'active-page': isLoginPage, 'hidden': isLoggedIn}" to="/login">Login or Sign up</RouterLink>
+                <RouterLink class="navbar-item" :class="{'hidden': !isLoggedIn}" @click="endSession" to="/login">Logout</RouterLink>
             </div>
         </div>
     </nav>

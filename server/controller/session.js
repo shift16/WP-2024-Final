@@ -28,7 +28,7 @@ router.post(LOGIN_API_URL, (req, res, next) => {
     return usersModel.getUserFromCredentials(userHandle, userPassword)
         .then((user) => {
             if (user != null)
-                res.status(200).json({'token': registerTokenWithId(user.user_id, user.is_admin)})
+                res.status(200).json({'token': registerTokenWithId(user.user_id, user.is_admin), 'is_admin': user.is_admin})
             else
                 res.status(401).json({
                         error: 'bad-input',

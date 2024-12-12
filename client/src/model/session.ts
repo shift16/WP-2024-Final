@@ -1,29 +1,53 @@
-import { api } from "./myFetch"
+import { api, type APIResponse } from "./myFetch"
+import { type User } from "./users"
 
-const REQUEST_LOGIN_API = "/public/session/login"
+// API URLs
+const ROOT_API_URL = '/public/session'
+const REQUEST_LOGIN_API_URL = '/login'
+const REQUEST_SIGN_UP_API_URL = '/signup'
 
-type TokenObject = {
-    token: string
+export type TokenObject = {
+    token: string,
+    is_admin: boolean
 }
 
-export async function createSession(userHandle: String, userPassword: String): Promise<string> {
-    const sessionObject = await api(REQUEST_LOGIN_API, 'POST', {
+export async function loadSession(userHandle: String, userPassword: String): Promise<string> {
+    const sessionObject = await api(ROOT_API_URL + REQUEST_LOGIN_API_URL, 'POST', {
         'userHandle': userHandle,
         'userPassword': userPassword
     }, null) as TokenObject
 
-    const sessionId: string = sessionObject.token 
+    const tokenId: string = sessionObject.token 
+    const isAdmin: boolean = sessionObject.is_admin
 
-    sessionStorage.setItem("session", sessionId)
+    sessionStorage.setItem("token", tokenId)
+    sessionStorage.setItem('is_admin', Boolean(isAdmin).toString())
     
-    // Work in progress
-    return sessionId
+    return tokenId
 }
 
-export function getSession(): string | 'No ID' {
-    const sessionId = sessionStorage.getItem("session")
-    if (sessionId != null)
-        return sessionId
+export type Session = {
+    token: string | null,
+    is_admin: boolean | null
+}
+
+export function getSession(): Session {
+    const token = sessionStorage.getItem("token")
+    const isAdmin = sessionStorage.getItem('is_admin')
+
+    if (token != null)
+        return { token: token, is_admin: isAdmin === 'true' }
     else
-        return 'No ID'
+        return { token: null, is_admin: null}
+}
+
+export async function createSession(newAccount: User): Promise<TokenObject | APIResponse> {
+    return await api<TokenObject>(
+        ROOT_API_URL + REQUEST_SIGN_UP_API_URL,
+        'POST', newAccount, null
+    )
+}
+
+export function endSession() {
+    sessionStorage.clear()
 }

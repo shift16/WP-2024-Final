@@ -11,6 +11,7 @@ async function getAllUserPosts(userId) {
     return data
 }
 
+/// Should automatically increment the total stats on a user....?
 async function addPost(userId, newPost) {
     const { error } = await conn
         .from('posts')

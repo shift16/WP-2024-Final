@@ -1,19 +1,24 @@
 // Defining API URLs
-const ROOT_URL = 'http://0.0.0.0:3000/' // TODO MUST CHANGE BACK
+const ROOT_URL = 'http://localhost:3000' // TODO MUST CHANGE BACK
 const API_URL = ROOT_URL + '/api/v1'
 
-export function api<T>(url: string, requestType: 'GET' | 'POST' | 'PATCH' | 'DELETE', data: object | null, sessionToken: string | null): Promise<T> {
-	// Some error handling
-	if (requestType === 'POST')
-		if (data == null)
-			console.error("All POST requests should send information. Therefore, property 'data' shouldn't be null")
+// A userful type
+export type APIResponse = {
+	message: string
+}
 
-	if (requestType === 'GET')
+export function api<T>(url: string, requestType: 'GET' | 'POST' | 'PATCH' | 'DELETE', data: object | null, sessionToken: string | null): Promise<T | APIResponse> {
+	// Some error handling
+	if (requestType === 'POST' || requestType === 'PATCH')
+		if (data == null)
+			console.error("All POST and PATCH requests should send information. Therefore, property 'data' shouldn't be null")
+
+	if (requestType === 'GET' || requestType === 'DELETE')
 		if (data != null)
-			console.error("All GET requestions request information. Therefore, property 'data' should be null")
+			console.error("All GET and DELETE requests don't send information. Therefore, property 'data' should be null")
 
 	// Actual api code
-	let returnedPromise: Promise<T>
+	let returnedPromise: Promise<T | APIResponse>
 
 	if (data != null) {
 		returnedPromise = fetch(API_URL + url, {

@@ -1,7 +1,24 @@
 <script setup lang='ts'>
 	import NavBar from '../components/NavBar.vue'
 	import Footer from '../components/FooterBar.vue'
+	import { getSession, loadSession } from '../model/session';
+	import { getLoggedInUserInformation } from '../model/users';
 	import { RouterLink } from 'vue-router'
+	import { ref, type Ref } from 'vue';
+
+	const { token } = getSession()
+	const isLoggedIn: Ref<boolean> = ref(false)
+
+    if (token != null) {
+		isLoggedIn.value = true // For instant update of the webpage
+        getLoggedInUserInformation(token)
+            .then(userInfo => {
+                if ('user_id' in userInfo)
+					isLoggedIn.value = true
+				else
+					isLoggedIn.value = false // Just in case the session token expired
+            })
+    }
 
 </script>
 
@@ -11,7 +28,11 @@
 		<h1 class="font-very-large has-text-weight-bold set-text-color-white">
 			CONSISTENCY LEADS TO SUCCESS
 		</h1>
-		<RouterLink to="login" class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
+
+		<RouterLink to='/tracker' v-if="isLoggedIn" class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
+			WELCOME BACK
+		</RouterLink>
+		<RouterLink to="login" v-else class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
 			MAKE AN ACCOUNT TODAY
 		</RouterLink>
 	</div>
