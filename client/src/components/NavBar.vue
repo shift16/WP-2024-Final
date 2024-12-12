@@ -15,7 +15,6 @@ const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'your-fi
 const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
 const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
 const isLoginPageActive: Ref<Boolean> = ref(props.currentPage === 'login')
-const isLogoutPageActive: Ref<Boolean> = ref(props.currentPage === 'logout')
 
 const isBurgerActive: Ref<Boolean> = ref(false)
 const isLoggedIn: Ref<Boolean> = ref(false)
@@ -73,7 +72,7 @@ function toggleNavBarBurger() {
             <div class="navbar-end">
                 <RouterLink class="navbar-item" :class="{ 'active-page': isAdminPageActive, 'hidden': !(isAdmin && isLoggedIn) }" to='/admin'>Admin View</RouterLink>
                 <RouterLink class="navbar-item" v-if="!isLoggedIn" :class="{ 'active-page': isLoginPageActive }" to="/login">Login or Sign up</RouterLink>
-                <RouterLink class="navbar-item" v-else :class="{ 'active-page': isLogoutPageActive }" @click="endSession" to="/logout">Logout</RouterLink>
+                <RouterLink class="navbar-item" v-else @click="endSession" to="/login">Logout</RouterLink>
             </div>
         </div>
     </nav>

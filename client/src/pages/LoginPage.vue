@@ -4,6 +4,7 @@ import { type Ref, ref } from 'vue'
 import NavBar from '../components/NavBar.vue'
 import Footer from '../components/FooterBar.vue'
 import { useRouter } from 'vue-router'
+import { type User } from 'src/model/users'
 
 // This page should not be accessible if the user is logged in
 const router = useRouter()
@@ -12,12 +13,16 @@ const currentSession = getSession()
 if (currentSession.token != null)
 	router.go(-1)
 
-const userHandle: Ref<String> = ref('')
-const userPassword: Ref<String> = ref('')
-const userMessage: Ref<String> = ref('Welcome back!')
-const isAttemptingLogin: Ref<Boolean> = ref(false)
-const isAttemptingSignUp: Ref<Boolean> = ref(false)
-const isSignUpView: Ref<Boolean> = ref(false)
+const userHandle: Ref<string> = ref('')
+const userPassword: Ref<string> = ref('')
+const userMessage: Ref<string> = ref('Welcome back!')
+const isAttemptingLogin: Ref<boolean> = ref(false)
+
+const isAttemptingSignUp: Ref<boolean> = ref(false)
+const isSignUpView: Ref<boolean> = ref(false)
+const userPicture: Ref<string> = ref('')
+const userEmail: Ref<string> = ref('')
+const userFullName: Ref<string> = ref('')
 
 function loginInputError() {
 	userMessage.value = 'Incorrect handle or password'
@@ -40,8 +45,49 @@ function attemptLogin() {
 		})
 }
 
+function signUpInputError(message?: string) {
+	userMessage.value = message || 'The handle or email already exists'
+	isAttemptingSignUp.value = false
+}
+
+function signUpInputSuccess() {
+	router.push('/your-fitness')
+	isAttemptingSignUp.value = false
+}
+
 function attemptSignUp() {
-	isAttemptingLogin.value = true
+	isAttemptingSignUp.value = true
+	const newUser: User = {
+		picture: userPicture.value,
+		email: userEmail.value,
+		full_name: userFullName.value,
+		is_admin: false,
+		handle: userHandle.value,
+		password: userPassword.value
+	}
+
+	if (newUser.picture == '') {
+		newUser.picture = 'Default'
+	} else {
+		switch (newUser.picture) {
+			case 'Default':
+			case 'Guy':
+			case 'Girl':
+			case 'Firefighter':
+				break;
+			default:
+				return signUpInputError('The value for picture must be: "Default", "Guy", "Girl" or "Firefighter"')
+
+		}
+	}
+
+	createSession(newUser)
+		.then(result => {
+			if ('message' in result)
+				signUpInputError(result.message)
+			else
+				signUpInputSuccess()
+		})
 }
 
 function activateSignUp() {
@@ -74,12 +120,40 @@ function activateSignUp() {
 					</span>
 				</p>
 			</div>
-
+			
 			<div class="field">
 				<p class="control has-icons-left" :class="{'is-loading': isAttemptingLogin || isAttemptingSignUp}">
 					<input v-model="userPassword" class="input is-rounded" type="password" placeholder="Your Password" />
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
+					</span>
+				</p>
+			</div>
+			
+			<div v-if="isSignUpView" class="field">
+				<p class="control has-icons-left" :class="{'is-loading': isAttemptingLogin || isAttemptingSignUp}">
+					<input v-model="userFullName" class="input is-rounded" type="text" placeholder="Your full name" />
+					<span class="icon is-small is-left">
+						<i class="fas fa-fingerprint"></i>
+					</span>
+				</p>
+			</div>
+
+			<div v-if="isSignUpView" class="field">
+				<p class="control has-icons-left" :class="{'is-loading': isAttemptingLogin || isAttemptingSignUp}">
+					<input v-model="userEmail" class="input is-rounded" type="text" placeholder="Your email" />
+					<span class="icon is-small is-left">
+						<i class="fas fa-envelope"></i>
+					</span>
+				</p>
+			</div>
+
+
+			<div v-if="isSignUpView" class="field">
+				<p class="control has-icons-left" :class="{'is-loading': isAttemptingLogin || isAttemptingSignUp}">
+					<input v-model="userPicture" class="input is-rounded" type="text" placeholder="Your picture (Only valid options are: Default, Guy, Girl, and Firefighter)" />
+					<span class="icon is-small is-left">
+						<i class="fas fa-image"></i>
 					</span>
 				</p>
 			</div>

@@ -44,10 +44,20 @@ export function getSession(): Session {
 }
 
 export async function createSession(newAccount: User): Promise<TokenObject | APIResponse> {
-    return await api<TokenObject>(
+    const sessionObject = await api<TokenObject>(
         ROOT_API_URL + REQUEST_SIGN_UP_API_URL,
         'POST', newAccount, null
     )
+
+    if ('token' in sessionObject) {
+        const tokenId: string = sessionObject.token 
+        const isAdmin: boolean = sessionObject.is_admin
+    
+        sessionStorage.setItem("token", tokenId)
+        sessionStorage.setItem('is_admin', Boolean(isAdmin).toString())
+    }
+    
+    return sessionObject
 }
 
 export function endSession() {

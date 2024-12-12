@@ -9,13 +9,16 @@ import { ref, type Ref } from 'vue'
 
 const { token } = getSession()
 const isLoggedIn: Ref<boolean> = ref(false)
+const fullName: Ref<String> = ref('')
 
 if (token != null) {
 	isLoggedIn.value = true // For instant update of the webpage
 	getLoggedInUserInformation(token)
 		.then(userInfo => {
-			if ('user_id' in userInfo)
+			if ('user_id' in userInfo) {
 				isLoggedIn.value = true
+				fullName.value = userInfo.full_name
+			}
 			else
 				isLoggedIn.value = false // Just in case the session token expired
 		})
@@ -32,7 +35,7 @@ if (token != null) {
 
 		<RouterLink to='/your-fitness' v-if="isLoggedIn"
 			class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
-			WELCOME BACK
+			WELCOME BACK {{ fullName }}
 		</RouterLink>
 		<RouterLink to="login" v-else
 			class="has-text-weight-bold set-text-color-white is-size-5 red-underline force-fit-content make-an-account-link">
