@@ -14,11 +14,6 @@ export type User = {
     email: string,
     full_name: string,
     is_admin: boolean,
-    total_steps_taken: number, // 
-    total_distance_traveled: number, // 
-    total_calories_burned: number, //
-    total_active_minutes: number, // 
-    average_intensity: number, // Might delete
     handle: string,
     password: string
 }

@@ -1,45 +1,48 @@
 <script setup lang="ts">
-    import { RouterLink } from 'vue-router'
-    import { ref, type Ref } from 'vue'
-    import { getSession, endSession } from '../model/session'
-    import { getLoggedInUserInformation, type User } from '../model/users';
 
-    const props = defineProps<{
-        currentPage: string
-    }>()
+import { RouterLink } from 'vue-router'
+import { ref, type Ref } from 'vue'
+import { getSession, endSession } from '../model/session'
+import { getLoggedInUserInformation } from '../model/users';
 
-    const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
-    const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
-    const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
-    const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
-    const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
-    const isLoginPage: Ref<Boolean> = ref(props.currentPage === 'login')
+const props = defineProps<{
+    currentPage: string
+}>()
 
-    const isBurgerActive: Ref<Boolean> = ref(false)
-    const isLoggedIn: Ref<Boolean> = ref(false)
-    const isAdmin: Ref<Boolean> = ref(false)
+const isHomeActive: Ref<Boolean> = ref(props.currentPage === 'home')
+const isAboutActive: Ref<Boolean> = ref(props.currentPage === 'about')
+const isYourFitnessPageActive: Ref<Boolean> = ref(props.currentPage === 'tracker')
+const isFriendsPageActive: Ref<Boolean> = ref(props.currentPage === 'friends')
+const isAdminPageActive: Ref<Boolean> = ref(props.currentPage === 'admin')
+const isLoginPageActive: Ref<Boolean> = ref(props.currentPage === 'login')
+const isLogoutPageActive: Ref<Boolean> = ref(props.currentPage === 'logout')
 
-    const { token, is_admin } = getSession()
+const isBurgerActive: Ref<Boolean> = ref(false)
+const isLoggedIn: Ref<Boolean> = ref(false)
+const isAdmin: Ref<Boolean> = ref(false)
 
-    if (token != null && is_admin != null) {
-		isLoggedIn.value = true // For instant update of the webpage
-        isAdmin.value = is_admin
+const { token, is_admin } = getSession()
 
-        getLoggedInUserInformation(token)
-            .then(userInfo => {
-                if (!('message' in userInfo)) {
-                    isLoggedIn.value = true
-                    isAdmin.value = userInfo.is_admin
-                } else {
-                    isLoggedIn.value = false // Just in case the session token expired
-                    isAdmin.value = false
-                    console.log(userInfo.message)
-                }
-            })
-    }
-    function toggleNavBarBurger() {
-        isBurgerActive.value = !isBurgerActive.value
-    }
+if (token != null && is_admin != null) {
+    isLoggedIn.value = true // For instant update of the webpage
+    isAdmin.value = is_admin
+
+    getLoggedInUserInformation(token)
+        .then(userInfo => {
+            if (!('message' in userInfo)) {
+                isLoggedIn.value = true
+                isAdmin.value = userInfo.is_admin
+            } else {
+                isLoggedIn.value = false // Just in case the session token expired
+                isAdmin.value = false
+                console.log(userInfo.message)
+            }
+        })
+}
+
+function toggleNavBarBurger() {
+    isBurgerActive.value = !isBurgerActive.value
+}
 
 </script>
 
@@ -58,70 +61,70 @@
             </button>
         </div>
 
-        <div class="navbar-menu has-text-weight-bold is-size-6-5 transparent-background" :class="{'is-active': isBurgerActive}">
+        <div class="navbar-menu has-text-weight-bold is-size-6-5 transparent-background" :class="{ 'is-active': isBurgerActive }">
             <div class="navbar-start">
-                <RouterLink class="navbar-item" :class="{'active-page': isHomeActive}" to="/">Home</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn}" to="/tracker">Your Fitness</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isFriendsPageActive, 'hidden': !isLoggedIn}" to="/friends">Friend's Activity</RouterLink>
-                <RouterLink class="navbar-item" :class="{'hidden': !isLoggedIn}" to='/search'>Find Friends</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isAboutActive}" to="/about">About Us</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isHomeActive }" to="/">Home</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn }" to="/tracker">Your Fitness</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isFriendsPageActive, 'hidden': !isLoggedIn }" to="/friends">Friend's Activity</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'hidden': !isLoggedIn }" to='/search'>Find Friends</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isAboutActive }" to="/about">About Us</RouterLink>
             </div>
 
             <div class="navbar-end">
-                <RouterLink class="navbar-item" :class="{'active-page': isAdminPageActive, 'hidden': !(isAdmin && isLoggedIn)}" to='/admin'>Admin View</RouterLink>
-                <RouterLink class="navbar-item" :class="{'active-page': isLoginPage, 'hidden': isLoggedIn}" to="/login">Login or Sign up</RouterLink>
-                <RouterLink class="navbar-item" :class="{'hidden': !isLoggedIn}" @click="endSession" to="/login">Logout</RouterLink>
+                <RouterLink class="navbar-item" :class="{ 'active-page': isAdminPageActive, 'hidden': !(isAdmin && isLoggedIn) }" to='/admin'>Admin View</RouterLink>
+                <RouterLink class="navbar-item" v-if="!isLoggedIn" :class="{ 'active-page': isLoginPageActive }" to="/login">Login or Sign up</RouterLink>
+                <RouterLink class="navbar-item" v-else :class="{ 'active-page': isLogoutPageActive }" @click="endSession" to="/logout">Logout</RouterLink>
             </div>
         </div>
     </nav>
 </template>
 
 <style scoped>
-    /* A bunch of custom styling  */
-    .navbar-burger:hover {
-        background-color: #ec3642;
-    }
+/* A bunch of custom styling  */
+.navbar-burger:hover {
+    background-color: #ec3642;
+}
 
-    .hidden {
-        display: none;
-    }
+.hidden {
+    display: none;
+}
 
-    .is-size-6-5 {
-        font-size: medium;
-    }
+.is-size-6-5 {
+    font-size: medium;
+}
 
-    .icon-rotation {
-        transform: rotate(-20deg);
-    }
+.icon-rotation {
+    transform: rotate(-20deg);
+}
 
-    .icon-size {
-        font-size: 20px;
-    }
+.icon-size {
+    font-size: 20px;
+}
 
-    .transparent-background {
-        background-color: rgba(0, 0, 0, 0);
-    }
+.transparent-background {
+    background-color: rgba(0, 0, 0, 0);
+}
 
-    .set-text-color-white {
-        color: whitesmoke;
-        --bulma-link-text: white;
-        --bulma-navbar-burger-color: white;
-    }
+.set-text-color-white {
+    color: whitesmoke;
+    --bulma-link-text: white;
+    --bulma-navbar-burger-color: white;
+}
 
-    a.navbar-item {
-        --bulma-navbar-item-color: white;
-        background-color: rgba(0, 0, 0, 0);
-    }
+a.navbar-item {
+    --bulma-navbar-item-color: white;
+    background-color: rgba(0, 0, 0, 0);
+}
 
-    .navbar-item:hover {
-        background-color: #ec3642;
-    }
+.navbar-item:hover {
+    background-color: #ec3642;
+}
 
-    .navbar-logo:hover {
-        background-color: #ec3642;
-    }
+.navbar-logo:hover {
+    background-color: #ec3642;
+}
 
-    .active-page {
-        border-bottom: 0.4rem solid #ec3642;
-    }
+.active-page {
+    border-bottom: 0.4rem solid #ec3642;
+}
 </style>
