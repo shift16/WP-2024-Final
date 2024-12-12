@@ -47,12 +47,24 @@ router.get(GET_USER_API_URL, (req, res, next) => {
     
     const userInfo = req.userInfo
 
-    // Ensure the user is either an Admin or is the current user
+    // Ensure the user is either an Admin or is the current user, if not, only return public information on the user
     if (userInfo.isAdmin === false)
         if (userInfo.userId !== requestedID)
-            return res.status(403).json({
-                'message': "User does not have permission to get this user's info"
-            })
+            return usersModel.getUserInfo(requestedID)
+                .then(userInfo => {
+                    if (userInfo != null)
+                        res.status(200).json({
+                            'user_id': userInfo.user_id,
+                            'picture': userInfo.picture,
+                            'email': userInfo.email,
+                            'full_name': userInfo.full_name,
+                            'handle': userInfo.handle
+                        })
+                    else
+                        res.status(404).json({
+                            'message': 'User does not exist'
+                        })
+                })
 
     usersModel.getUserInfo(requestedID)
         .then(userInfo => {

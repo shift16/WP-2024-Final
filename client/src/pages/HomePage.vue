@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 	import NavBar from '../components/NavBar.vue'
 	import Footer from '../components/FooterBar.vue'
-	import { getSession, loadSession } from '../model/session';
+	import { getSession } from '../model/session';
 	import { getLoggedInUserInformation } from '../model/users';
 	import { RouterLink } from 'vue-router'
 	import { ref, type Ref } from 'vue';

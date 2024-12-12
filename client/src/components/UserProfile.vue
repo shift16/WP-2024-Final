@@ -11,21 +11,13 @@
     const userToShow = props.user
     const postToShow = props.post
 
-    // let usersPicture: Ref<string> = ref(userToShow.picture)
-    // let usersActualName: Ref<string> = ref(userToShow.full_name)
-    // let usersHandle: Ref<string> = ref(userToShow.handle)
-    // let usersPostContent: Ref<string> = ref(postToShow.content) 
-    // let usersPostDate: Ref<string> = ref(postToShow.post_date.toDateString())
-    // let usersPostDateDirect: Ref<string> = ref(postToShow.post_date.toISOString())
+    const usersPicture: Ref<string> = ref(userToShow.picture)
+    const usersActualName: Ref<string> = ref(userToShow.full_name)
+    const usersHandle: Ref<string> = ref(userToShow.handle)
+    const usersPostContent: Ref<string> = ref(postToShow.content) 
+    const usersPostDate: Ref<string> = ref(postToShow.post_date.toDateString())
+    const usersPostDateDirect: Ref<string> = ref(postToShow.post_date.toISOString())
 
-    // Temp \/
-    
-    let usersPicture = ref('src/assets/professional-firefighter.jpg')
-    let usersActualName = ref('undefined')
-   let usersHandle = ref('undefined')
-    let usersPostContent = ref('undefined') 
-   let usersPostDate = ref('undefined')
-  let  usersPostDateDirect = ref((new Date(1000000)).toISOString() )
    
 </script>
 
