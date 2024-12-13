@@ -2,7 +2,7 @@
 
 import NavBar from '../components/NavBar.vue'
 import Footer from '../components/FooterBar.vue'
-import { getSession } from '../model/session'
+import { getSession, endSession } from '../model/session'
 import { getLoggedInUserInformation } from '../model/users'
 import { RouterLink } from 'vue-router'
 import { ref, type Ref } from 'vue'
@@ -18,9 +18,10 @@ if (token != null) {
 			if ('user_id' in userInfo) {
 				isLoggedIn.value = true
 				fullName.value = userInfo.full_name
-			}
-			else
+			} else {
 				isLoggedIn.value = false // Just in case the session token expired
+				endSession() // This session should be ended because the token is invalid
+			}
 		})
 }
 

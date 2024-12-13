@@ -1,5 +1,5 @@
 // Defining API URLs
-const ROOT_URL = 'http://localhost:3000' // TODO MUST CHANGE BACK
+const ROOT_URL = true ? 'http://localhost:3000' : 'https://wp-2024-final.onrender.com'// TODO MUST CHANGE BACK
 const API_URL = ROOT_URL + '/api/v1'
 
 // A userful type

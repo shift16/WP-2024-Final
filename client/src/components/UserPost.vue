@@ -95,7 +95,7 @@ a {
 }
 
 .color-override {
-    color: white;
+    color: whitesmoke;
     background-color: black;
 }
 </style>

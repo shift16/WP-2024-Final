@@ -8,7 +8,6 @@ import { getAllPosts, addPost, type Post } from '../model/posts'
 import { getSession } from '../model/session'
 import { type Intensity, toIntensity } from '../lib/intensity'
 
-
 // Define the refs
 const totalCaloriesBurned: Ref<number> = ref(0)
 const totalActiveMinutes: Ref<number> = ref(0)
@@ -33,10 +32,10 @@ function calculateStatistics(posts: Post[]) {
 }
 
 // Load the session
-const { token } = getSession()
 const infoLoaded: Ref<boolean> = ref(false)
 const userInformation: Ref<User | null> = ref(null)
 const userPosts: Ref<Post[] | null> = ref(null)
+const { token } = getSession()
 
 if (token != null) {
     getLoggedInUserInformation(token)
@@ -75,19 +74,19 @@ function openCreatePostModal() {
 
         <!-- Your stats -->
         <div class="grid mt-6 mx-6">
-            <div class="cell cool-background has-text-centered center-content pill-effect">
+            <div class="cell cool-background white-text has-text-centered center-content pill-effect">
                 <div>You've burned <b>{{ totalCaloriesBurned }}</b> Calories in total</div>
             </div>
-            <div class="cell cool-background has-text-centered center-content pill-effect">
+            <div class="cell cool-background white-text has-text-centered center-content pill-effect">
                 <div>You've been active for <b>{{ totalActiveMinutes }}</b> minutes</div>
             </div>
-            <div class="cell cool-background has-text-centered center-content pill-effect">
+            <div class="cell cool-background white-text has-text-centered center-content pill-effect">
                 <div>You're average workout intensity is <b>{{ averageWorkoutIntensity }}</b></div>
             </div>
         </div>
         
         <!-- Add post -->
-        <button class="button mx-6 mt-5 mb-6 cool-background" @click="openCreatePostModal">Create another post</button>
+        <button class="button white-text mx-6 mt-5 mb-6 cool-background" @click="openCreatePostModal">Create another post</button>
 
         
 
@@ -119,6 +118,10 @@ function openCreatePostModal() {
 .pill-effect {
     border-radius: 0.25rem;
     height: 5rem;
+}
+
+.white-text {
+    color: whitesmoke;
 }
 
 b {
