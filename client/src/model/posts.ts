@@ -12,9 +12,7 @@ export type Post = {
     post_id: number,
     user_id: number,
     content: string,
-    post_date: Date,
-    steps_taken: number,
-    distance_traveled: number,
+    post_date: string,
     calories_burned: number,
     active_minutes: number,
     workout_intensity: number
