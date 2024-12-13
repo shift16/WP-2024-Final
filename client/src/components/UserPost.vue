@@ -2,7 +2,7 @@
 
 import { ref, type Ref } from 'vue'
 import { type UserPublicInfo, type User } from '../model/users'
-import { type Post } from 'src/model/posts'
+import { type Post } from '../model/posts'
 import { type Intensity, toIntensity } from '../lib/intensity'
 
 

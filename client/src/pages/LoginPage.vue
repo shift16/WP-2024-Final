@@ -4,7 +4,7 @@ import { type Ref, ref } from 'vue'
 import NavBar from '../components/NavBar.vue'
 import Footer from '../components/FooterBar.vue'
 import { useRouter } from 'vue-router'
-import { type User } from 'src/model/users'
+import { type User } from '../model/users'
 
 // This page should not be accessible if the user is logged in
 const router = useRouter()
