@@ -100,8 +100,12 @@ function createPostSuccess(newPost: NewPost) {
     postActiveMinutes.value = ""
     postWorkoutIntensity.value = 'Average'
 
-    userPosts.value?.push(newPost as Post) // The property post_id is never used in this array
-    userPosts.value?.sort(sortPosts)
+    if (userPosts.value) {
+        userPosts.value.push(newPost as Post) // The property post_id is never used in this array
+        userPosts.value.sort(sortPosts)
+
+        calculateStatistics(userPosts.value)
+    }
 
     isCreatingPost.value = false
 }
@@ -253,9 +257,8 @@ function createNewPost() {
 
         <!-- Your posts -->
         <div v-if="userPosts != null && userInformation != null" class="grid is-col-min-10 is-gap-8 mx-6">
-            <div class="cell white-text" v-for="(post, key) in userPosts">
+            <div class="cell white-text" v-for="post of userPosts">
                 <UserPost :user="userInformation" :post="post"></UserPost>
-                {{ post.content + '    ' + key }}
             </div>
         </div>
         

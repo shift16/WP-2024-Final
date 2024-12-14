@@ -42,7 +42,7 @@ router.get(GET_FRIENDS_POSTS, (req, res, next) => {
 
     friendsModel.getUserFriends(currentUserId)
         .then(friends => {
-            const friendsPosts = {}
+            const friendsPosts = []
             let friendsAdded = 0
 
             for (const friend of friends) {
@@ -50,20 +50,16 @@ router.get(GET_FRIENDS_POSTS, (req, res, next) => {
 
                 postsModel.getAllUserPosts(friendId)
                     .then(posts => {
-                        usersModels.getUserInfo(friendId)
-                            .then(userInfo => {
-                                friendsPosts[userInfo.handle] = posts
-                                friendsAdded++
-        
-                                if (friendsAdded === friends.length)
-                                    res.status(200).json(friendsPosts)
-                            })
-                            .catch(next)
+                        friendsPosts.push(...posts)
+                        friendsAdded++
+
+                        if (friendsAdded === friends.length)
+                            res.status(200).json(friendsPosts)
                     })
                     .catch(next)
             }
         })
-        .catch(next) // /\ Callback hell!
+        .catch(next)
 })
 
 router.post(ADD_USER_POST_API_URL, (req, res, next) => {

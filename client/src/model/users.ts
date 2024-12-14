@@ -40,8 +40,8 @@ export async function getLoggedInUserInformation(token: string): Promise<User | 
     return await api<User>(ROOT_API_URL + GET_MY_INFO_API_URL, 'GET', null, token)
 }
 
-export async function getUserInfo(token: string, userId: number): Promise<User | APIResponse> {
-    return await api<User>(
+export async function getUserInfo(token: string, userId: number): Promise<User | UserPublicInfo | APIResponse> {
+    return await api<User | UserPublicInfo>(
         ROOT_API_URL + GET_USER_INFO_API_URL + userId,
         'GET', null, token
     )
