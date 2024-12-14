@@ -13,3 +13,18 @@ export function toIntensity(value: number): Intensity {
     else
         return 'Weak'
 }
+
+export function toNumber(value: Intensity) {
+   switch (value) {
+    case 'Extreme':
+        return 1
+    case 'Strong':
+        return 0.75
+    case 'Average':
+        return 0.5
+    case 'Okay':
+        return 0.35
+    case 'Weak':
+        return 0.15
+   }
+}

@@ -1,5 +1,5 @@
 import { api, type APIResponse } from "./myFetch"
-import { type User } from "./users"
+import { type NewUser } from "./users"
 
 // API URLs
 const ROOT_API_URL = '/public/session'
@@ -43,7 +43,7 @@ export function getSession(): Session {
         return { token: null, is_admin: null}
 }
 
-export async function createSession(newAccount: User): Promise<TokenObject | APIResponse> {
+export async function createSession(newAccount: NewUser): Promise<TokenObject | APIResponse> {
     const sessionObject = await api<TokenObject>(
         ROOT_API_URL + REQUEST_SIGN_UP_API_URL,
         'POST', newAccount, null

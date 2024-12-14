@@ -4,7 +4,7 @@ import { type Ref, ref } from 'vue'
 import NavBar from '../components/NavBar.vue'
 import Footer from '../components/FooterBar.vue'
 import { useRouter } from 'vue-router'
-import { type User } from '../model/users'
+import { type NewUser } from '../model/users'
 
 // This page should not be accessible if the user is logged in
 const router = useRouter()
@@ -57,7 +57,7 @@ function signUpInputSuccess() {
 
 function attemptSignUp() {
 	isAttemptingSignUp.value = true
-	const newUser: User = {
+	const newUser: NewUser = {
 		picture: userPicture.value,
 		email: userEmail.value,
 		full_name: userFullName.value,

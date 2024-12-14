@@ -18,7 +18,17 @@ export type Post = {
     workout_intensity: number
 }
 
-export async function addPost(token: string, newPost: Post): Promise<APIResponse> {
+// post_id is created automatically in the database
+export type NewPost = {
+    user_id: number,
+    content: string,
+    post_date: string,
+    calories_burned: number,
+    active_minutes: number,
+    workout_intensity: number
+}
+
+export async function addPost(token: string, newPost: NewPost): Promise<APIResponse> {
     return await api(
         ROOT_API_URL + ADD_POST_API_URL,
         'POST', newPost, token

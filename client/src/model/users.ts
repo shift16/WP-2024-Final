@@ -9,7 +9,17 @@ const GET_ALL_USER_INFO_API_URL = '/all'
 const DELETE_USER_API_URL = '/'
 
 export type User = {
-    user_id?: number,
+    user_id: number,
+    picture: string,
+    email: string,
+    full_name: string,
+    is_admin: boolean,
+    handle: string,
+    password: string
+}
+
+// user_id is created automatically in the database
+export type NewUser = {
     picture: string,
     email: string,
     full_name: string,
