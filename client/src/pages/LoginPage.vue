@@ -57,6 +57,19 @@ function signUpInputSuccess() {
 
 function attemptSignUp() {
 	isAttemptingSignUp.value = true
+
+	if (userEmail.value == '')
+		return signUpInputError('You must provide an email')
+
+	if (userFullName.value == '')
+		return signUpInputError('You must provide a full name')
+
+	if (userHandle.value == '')
+		return signUpInputError('You must provide a handle')
+
+	if (userPassword.value == '')
+		return signUpInputError('You must provide a password')
+
 	const newUser: NewUser = {
 		picture: userPicture.value,
 		email: userEmail.value,

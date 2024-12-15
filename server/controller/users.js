@@ -99,7 +99,7 @@ router.patch(UPDATE_USER_API_URL, (req, res, next) => {
     usersModel.updateUserInformation(requestedID, req.body)
         .then(error => {
             if (error == null)
-                res.status(200).json('User updated')
+                res.status(200).json({ message: 'User updated'})
             else
                 res.status(400).json(error)
         })
