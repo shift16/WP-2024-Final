@@ -27,7 +27,7 @@ export async function getFriends(token: string, userId: number): Promise<Friend[
 
 export async function removeFriend(token: string, handle: string): Promise<APIResponse> {
     return await api(
-        ROOT_API_URL + REMOVE_FRIEND_API_URL,
-        'DELETE', {'handle': handle}, token
+        ROOT_API_URL + REMOVE_FRIEND_API_URL + handle,
+        'DELETE', null, token
     )
 }

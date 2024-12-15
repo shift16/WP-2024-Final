@@ -188,7 +188,7 @@ function createNewPost() {
                     <div class="field">
                         <p class="white-text" >What did you do?</p>
                         <p class="control has-icons-left" :class="{'is-loading': isCreatingPost}">
-                            <textarea v-model="postContent" class="textarea input black-input-background" rows=5 placeholder="Nothing"/>
+                            <textarea v-model="postContent" class="textarea input" rows=5 placeholder="Nothing"/>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-comment-alt"></i>
                             </span>
@@ -199,7 +199,7 @@ function createNewPost() {
                         <div class="field mx-2">
                             <p class="white-text">How many calories did you burn?</p>
                             <div class="control has-icons-left" :class="{'is-loading': isCreatingPost}">
-                                <input v-model="postCaloriesBurned" class="input black-input-background" type='text' placeholder="0"/>
+                                <input v-model="postCaloriesBurned" class="input" type='text' placeholder="0"/>
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-bolt"></i>
                                 </span>
@@ -209,7 +209,7 @@ function createNewPost() {
                         <div class="field mx-2">
                             <p class="white-text" >How many minutes were you active?</p>
                             <div class="control has-icons-left" :class="{'is-loading': isCreatingPost}">
-                                <input v-model="postActiveMinutes" class="input black-input-background" type='text' placeholder="0"/>
+                                <input v-model="postActiveMinutes" class="input" type='text' placeholder="0"/>
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-clock"></i>
                                 </span>
@@ -248,7 +248,7 @@ function createNewPost() {
                         </div>
                     </div>
 
-                    <button class="button black-input-background mt-6 mb-2" @click="createNewPost">Create post</button>
+                    <button class="button mt-6 mb-2" @click="createNewPost">Create post</button>
                 </div>
             </div>
 
@@ -262,6 +262,9 @@ function createNewPost() {
             </div>
         </div>
         
+        <div class="box mx-6 mt-6 mb-6 cool-background" v-else>
+            <p class="white-text has-text-centered">You have no posts</p>
+        </div>
     </div>
     <div class="background-image"></div>
     <Footer />

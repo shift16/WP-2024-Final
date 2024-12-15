@@ -65,7 +65,6 @@ function toggleNavBarBurger() {
                 <RouterLink class="navbar-item" :class="{ 'active-page': isHomeActive }" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn }" to="/your-fitness">Your Fitness</RouterLink>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isFriendsPageActive, 'hidden': !isLoggedIn }" to="/friends">Friend's Activity</RouterLink>
-                <a class="navbar-item" :class="{ 'hidden': !isLoggedIn }">Find Friends</a>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isAboutActive }" to="/about">About Us</RouterLink>
             </div>
 

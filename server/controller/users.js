@@ -11,18 +11,31 @@ const UPDATE_USER_API_URL = '/:id'
 const DELETE_USER_API_URL = '/:id'
 
 router.get(GET_ALL_USERS_API_URL, (req, res, next) => {
-    // Ensure the user is an Admin
+    // Ensure the user is an Admin, or only send public information
     const userInfo = req.userInfo
-    if (userInfo.isAdmin === false)
-        return res.status(403).json({
-            'message': "User does not have permission to get all user's info"
-        })
-    
-    usersModel.getAllUsers()
-        .then(users => {
-            return res.status(200).json(users)
-        })
-        .catch(next)
+    if (userInfo.isAdmin === false) {
+        usersModel.getAllUsers()
+            .then(users => {
+                return res.status(200).json(users)
+            })
+            .catch(next)
+    } else {
+        usersModel.getAllUsers()
+            .then(users => {
+                users = users.map(userToModify => {
+                    return {
+                        'user_id': userToModify.user_id,
+                        'picture': userToModify.picture,
+                        'email': userToModify.email,
+                        'full_name': userToModify.full_name,
+                        'handle': userToModify.handle
+                    }
+                })
+                
+                return res.status(200).json(users)
+            })
+            .catch(next)
+    }
 })
 
 router.get(GET_MY_INFO_API_URL, (req, res, next) => {

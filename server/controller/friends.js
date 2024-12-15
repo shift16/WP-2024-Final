@@ -7,7 +7,7 @@ const usersModel = require('../model/users')
 const ROOT_API_URL='/friends'
 const GET_FRIENDS_API_URL = '/:id'
 const ADD_FRIEND_API_URL = '/'
-const REMOVE_FRIEND_API_URL = '/'
+const REMOVE_FRIEND_API_URL = '/:handle'
 
 router.get(GET_FRIENDS_API_URL, (req, res, next) => {
     const requestedID = Number(req.params.id)
@@ -78,7 +78,7 @@ router.post(ADD_FRIEND_API_URL, (req, res, next) => {
 })
 
 router.delete(REMOVE_FRIEND_API_URL, (req, res, next) => {
-    const requestedHandle = req.body.handle
+    const requestedHandle = req.params.handle
     const currentUserId = req.userInfo.userId
     
     usersModel.getUserIdFromHandle(requestedHandle)
@@ -107,7 +107,7 @@ router.delete(REMOVE_FRIEND_API_URL, (req, res, next) => {
                     friendsModel.removeFriend(currentUserId, oldFriendId)
                     .then(_ => {
                             res.status(200).json({
-                                'message': 'Removedvv friend'
+                                'message': 'Removed friend'
                             })
                         })
                         .catch(next)
