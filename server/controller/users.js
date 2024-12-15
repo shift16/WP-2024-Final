@@ -13,7 +13,7 @@ const DELETE_USER_API_URL = '/:id'
 router.get(GET_ALL_USERS_API_URL, (req, res, next) => {
     // Ensure the user is an Admin, or only send public information
     const userInfo = req.userInfo
-    if (userInfo.isAdmin === false) {
+    if (userInfo.isAdmin === true) {
         usersModel.getAllUsers()
             .then(users => {
                 return res.status(200).json(users)

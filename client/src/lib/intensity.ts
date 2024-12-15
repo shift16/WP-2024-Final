@@ -1,5 +1,5 @@
 // This very tiny library is for converting a number to an intensity
-export type Intensity = 'Extreme' | 'Strong' | 'Average' | 'Okay' | 'Weak'
+export type Intensity = 'Extreme' | 'Strong' | 'Average' | 'Okay' | 'Weak' | 'Unknown'
 
 export function toIntensity(value: number): Intensity {
     if (value > .90)
@@ -10,8 +10,10 @@ export function toIntensity(value: number): Intensity {
         return 'Average'
     else if (value > .25)
         return 'Okay'
-    else
+    else if (value > 0)
         return 'Weak'
+    else
+        return 'Unknown'
 }
 
 export function toNumber(value: Intensity) {
@@ -26,5 +28,7 @@ export function toNumber(value: Intensity) {
         return 0.35
     case 'Weak':
         return 0.15
+    case 'Unknown':
+        return 0
    }
 }

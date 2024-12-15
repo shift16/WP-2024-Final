@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar.vue'
 import Footer from '../components/FooterBar.vue'
 import UserPost from '../components/UserPost.vue'
 import { getLoggedInUserInformation, type User } from '../model/users'
-import { getAllPosts, addPost, type Post, type NewPost } from '../model/posts'
+import { getAllPosts, addPost, type Post, type NewPost, deletePost } from '../model/posts'
 import { getSession } from '../model/session'
 import { type Intensity, toIntensity, toNumber } from '../lib/intensity'
 
@@ -44,7 +44,7 @@ const userInformation: Ref<User | null> = ref(null)
 const userPosts: Ref<Post[] | null> = ref(null)
 const { token } = getSession()
 
-if (token != null) {
+function reGeneratePosts(token: string) {
     getLoggedInUserInformation(token)
         .then(result => {
             if ('picture' in result) {
@@ -68,6 +68,10 @@ if (token != null) {
                 }
             }
         })
+}
+
+if (token != null) {
+    reGeneratePosts(token)
 }
 
 // Define refs
@@ -100,11 +104,8 @@ function createPostSuccess(newPost: NewPost) {
     postActiveMinutes.value = ""
     postWorkoutIntensity.value = 'Average'
 
-    if (userPosts.value) {
-        userPosts.value.push(newPost as Post) // The property post_id is never used in this array
-        userPosts.value.sort(sortPosts)
-
-        calculateStatistics(userPosts.value)
+    if (token != null) {
+        reGeneratePosts(token)
     }
 
     isCreatingPost.value = false
@@ -152,6 +153,35 @@ function createNewPost() {
                         })
                 })
 
+        }
+    }
+}
+let deletingPost: boolean = false
+
+function removePost(post: Post) {
+    if (deletingPost === false) {
+        deletingPost = true
+
+        if (token != null) {
+            deletePost(token, post.post_id)
+                .then(result => {
+                    if ('message' in result) {
+                        console.log(result.message)
+                    }
+
+                    if (userPosts.value == null) {
+                        userPosts.value = []
+                    }
+
+                    userPosts.value = userPosts.value.filter(userPost => {
+                        if (userPost.post_id != post.post_id)
+                            return userPost
+                    })
+
+                    calculateStatistics(userPosts.value)
+
+                    deletingPost = false
+                })
         }
     }
 }
@@ -259,6 +289,10 @@ function createNewPost() {
         <div v-if="userPosts != null && userInformation != null" class="grid is-col-min-10 is-gap-8 mx-6">
             <div class="cell white-text" v-for="post of userPosts">
                 <UserPost :user="userInformation" :post="post"></UserPost>
+
+                <button class="button white-text cool-background" @click="removePost(post)">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
             </div>
         </div>
         
