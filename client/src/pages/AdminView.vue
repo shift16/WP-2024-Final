@@ -161,7 +161,7 @@ function completeEdit() {
         <div class="box cool-background is-flex is-flex-direction-row is-justify-content-center"
             v-for="user in allUsers">
 
-            <figure class="image is-48x48 is-align-self-center">
+            <figure class="image is-48x48 is-align-self-center white-text">
                 <img :src="user.picture" :alt="'Picture of the FitFusion user ' + user.handle" />
             </figure>
 
