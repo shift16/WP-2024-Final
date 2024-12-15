@@ -1,5 +1,5 @@
 // Defining API URLs
-const ROOT_URL = 'https://wp-2024-final.onrender.com'// TODO MUST CHANGE BACK
+const ROOT_URL = 'https://wp-2024-final.onrender.com'
 const API_URL = ROOT_URL + '/api/v1'
 
 // A userful type

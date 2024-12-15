@@ -3,24 +3,12 @@
 import { type UserPublicInfo, type User } from '../model/users'
 import { type Post } from '../model/posts'
 import { toIntensity } from '../lib/intensity'
+import { generatePicture } from '../lib/picture';
 
 const props = defineProps<{
     user: UserPublicInfo | User,
     post: Post
 }>()
-
-function generatePicture(): string {
-    switch (props.user.picture) {
-        case 'Girl':
-            return '/src/assets/professional-woman.jpg'
-        case 'Firefighter':
-            return 'src/assets/professional-firefighter.jpg'
-        case 'Default':
-        case 'Guy':
-        default:
-            return '/src/assets/professional-man.jpg'
-    }  
-}
 
 function generateIntensity(): string {
     return toIntensity(props.post.workout_intensity)
@@ -33,7 +21,7 @@ function generateIntensity(): string {
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img :src="generatePicture()" :alt="'Picture of the FitFusion user ' + user.handle" />
+                        <img :src="generatePicture(user.picture)" :alt="'Picture of the FitFusion user ' + user.handle" />
                     </figure>
                 </div>
                 <div class="media-content">

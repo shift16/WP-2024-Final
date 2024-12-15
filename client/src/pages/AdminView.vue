@@ -5,22 +5,10 @@ import { getAllUserInfo, type User, deleteUser, updateUserInfo } from '../model/
 import { getSession } from '../model/session';
 import { useRouter } from 'vue-router'
 import { type Ref, ref } from 'vue'
+import { generatePicture } from '../lib/picture';
 
 const { token, is_admin } = getSession()
 const router = useRouter()
-
-function generatePicture(str: string): string {
-    switch (str) {
-        case 'Girl':
-            return '/src/assets/professional-woman.jpg'
-        case 'Firefighter':
-            return 'src/assets/professional-firefighter.jpg'
-        case 'Default':
-        case 'Guy':
-        default:
-            return '/src/assets/professional-man.jpg'
-    }
-}
 
 if (token == null || is_admin == false)
     router.go(-1) // Only Admins should be able to find this page

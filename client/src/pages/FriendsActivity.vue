@@ -7,6 +7,7 @@ import Footer from '../components/FooterBar.vue'
 import { ref, type Ref } from 'vue';
 import { getUserInfo, type UserPublicInfo, getAllUserInfo, getLoggedInUserInformation } from '../model/users';
 import { addFriend, removeFriend } from '../model/friends';
+import { generatePicture } from '../lib/picture';
 
 type UserToPost = {
     user: UserPublicInfo,
@@ -20,19 +21,6 @@ const didPostsLoad: Ref<boolean> = ref(false)
 const friendsToPosts: Ref<UserToPost[]> = ref([])
 const usersFriends: Ref<UserPublicInfo[]> = ref([])
 let loggedInUserHandle: string | null
-
-function generatePicture(str: string): string {
-    switch (str) {
-        case 'Girl':
-            return '/src/assets/professional-woman.jpg'
-        case 'Firefighter':
-            return 'src/assets/professional-firefighter.jpg'
-        case 'Default':
-        case 'Guy':
-        default:
-            return '/src/assets/professional-man.jpg'
-    }
-}
 
 function sortPosts(post1: Post, post2: Post) {
     const time1 = new Date(post1.post_date).getTime()
