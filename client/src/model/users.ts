@@ -7,6 +7,7 @@ const GET_USER_INFO_API_URL = '/'
 const UPDATE_USER_INFO_API_URL = '/'
 const GET_ALL_USER_INFO_API_URL = '/all'
 const DELETE_USER_API_URL = '/'
+const FIND_USER_API_URL = '/find/'
 
 export type User = {
     user_id: number,
@@ -65,5 +66,12 @@ export async function deleteUser(token: string, userId: number): Promise<APIResp
     return await api(
         ROOT_API_URL + DELETE_USER_API_URL + userId,
         'DELETE', null, token
+    )
+}
+
+export async function findUserFromName(token: string, name: string) {
+    return await api<User[]>(
+        ROOT_API_URL + FIND_USER_API_URL + name,
+        'GET', null, token
     )
 }

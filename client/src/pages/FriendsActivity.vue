@@ -104,6 +104,7 @@ function toggleAddModal() {
             getAllUserInfo(token)
                 .then(users => {
                     if (!('message' in users)) {
+                        possibleFriends.value = []
                         for (const user of users) {
                             if (!isUserInArr(friendsToPosts.value, user.handle)) {
                                 if (loggedInUserHandle != null) {

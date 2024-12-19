@@ -2,6 +2,15 @@
 const { getConnection } = require('./supabase')
 const conn = getConnection()
 
+async function findUserFromName(handle) {
+    const { data } = await conn
+        .from('users')
+        .select('')
+        .ilike('full_name', `%${handle}%`)
+
+    return data
+}
+
 async function getUserFromCredentials(userHandle, userPassword) {
     const { data } = await conn
         .from('users')
@@ -107,5 +116,6 @@ module.exports = {
     updateUserInformation,
     deleteUser,
     getAllUsers,
-    getUserIdFromHandle
+    getUserIdFromHandle,
+    findUserFromName
 }

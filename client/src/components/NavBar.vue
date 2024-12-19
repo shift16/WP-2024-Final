@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router'
 import { ref, type Ref } from 'vue'
 import { getSession, endSession } from '../model/session'
 import { getLoggedInUserInformation } from '../model/users';
+import SearchBar from '../components/SearchBar.vue'
 
 const props = defineProps<{
     currentPage: string
@@ -43,6 +44,12 @@ function toggleNavBarBurger() {
     isBurgerActive.value = !isBurgerActive.value
 }
 
+const isSearchModalActive: Ref<boolean> = ref(false)
+
+function toggleSearchModal() {
+    isSearchModalActive.value = !isSearchModalActive.value
+}
+
 </script>
 
 <template>
@@ -65,6 +72,7 @@ function toggleNavBarBurger() {
                 <RouterLink class="navbar-item" :class="{ 'active-page': isHomeActive }" to="/">Home</RouterLink>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isYourFitnessPageActive, 'hidden': !isLoggedIn }" to="/your-fitness">Your Fitness</RouterLink>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isFriendsPageActive, 'hidden': !isLoggedIn }" to="/friends">Friend's Activity</RouterLink>
+                <a class="navbar-item" :class="{'hidden': !isLoggedIn}" @click="toggleSearchModal">Find People</a>
                 <RouterLink class="navbar-item" :class="{ 'active-page': isAboutActive }" to="/about">About Us</RouterLink>
             </div>
 
@@ -75,6 +83,16 @@ function toggleNavBarBurger() {
             </div>
         </div>
     </nav>
+
+    <div class="modal" :class="{'is-active': isSearchModalActive}">
+        <div class="modal-background"></div>
+
+        <div class="modal-content">
+            <SearchBar />
+        </div>
+
+        <button class="modal-close is-large" @click="toggleSearchModal"></button>
+    </div>
 </template>
 
 <style scoped>

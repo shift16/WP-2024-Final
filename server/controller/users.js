@@ -6,9 +6,24 @@ const usersModel = require('../model/users')
 const ROOT_API_URL = '/users'
 const GET_ALL_USERS_API_URL = '/all'
 const GET_MY_INFO_API_URL = '/me'
+const FIND_USER_API_URL = '/find/:name'
 const GET_USER_API_URL = '/:id'
 const UPDATE_USER_API_URL = '/:id'
 const DELETE_USER_API_URL = '/:id'
+
+router.get(FIND_USER_API_URL, (req, res, next) => {
+    const requestedName = req.params.name
+
+    usersModel.findUserFromName(requestedName)
+        .then(result => {
+            if (result != null)
+                return res.status(200).json(result)
+            else
+                return res.status(422).json( {
+                    'message': 'Invalid data passed'
+                })
+        })
+})
 
 router.get(GET_ALL_USERS_API_URL, (req, res, next) => {
     // Ensure the user is an Admin, or only send public information
